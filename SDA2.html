@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SDA Desktop</title>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+html, body {
+  height:100%;
+  margin:0;
+  padding:0;
+  background-color:#c0c0c0;
+  font-family:'Special Elite','IBM Plex Mono',monospace;
+  overflow:hidden;
+  position:relative;
+  background-image:
+    linear-gradient(to right, rgba(60,40,10,0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(60,40,10,0.1) 1px, transparent 1px);
+  background-size: 14px 14px;
+  color:#2b1d0e;
+}
+
+/* ---------- Logos unabhängig positionierbar ---------- */
+.logo {
+  position: fixed;
+  z-index:5;
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
+.logo img:hover {
+  transform: scale(1.05);
+  filter: brightness(1.2);
+}
+
+/* Frei platzierbare Logos */
+.logo.hansgpunkt { top: 87%; left: 46%; }
+.logo.meyks { top: 90%; left: 58%; }
+.logo.SenorSonate { top: 93%; left: 40%; }
+
+/* Individuelle Größen */
+.logo.hansgpunkt img { width: 250px; height:auto; }
+.logo.meyks img { width: 90px; height:auto; }
+.logo.SenorSonate img { width: 150px; height:auto; }
+
+/* ---------- Desktop Icon mittig ---------- */
+.desktop-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 5;
+}
+.icon {
+  width:48px;
+  height:48px;
+  cursor:pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  border:2px solid #fff;
+  box-shadow: -2px -2px 0 #808080, 2px 2px 0 #dfdfdf;
+  background:#c0c0c0;
+}
+.icon:hover {
+  transform:scale(1.1);
+  box-shadow: -2px -2px 0 #808080, 2px 2px 0 #dfdfdf, 0 0 6px rgba(255,255,255,0.6);
+}
+.label { 
+  margin-top:8px; 
+  font-size:14px; 
+  text-shadow:1px 1px 0 rgba(255,255,255,0.8); 
+}
+
+/* ---------- Popup / Win95-Fenster ---------- */
+#popup { 
+  position:absolute; 
+  inset:0; 
+  display:flex; 
+  align-items:center; 
+  justify-content:center; 
+  opacity:0; 
+  pointer-events:none; 
+  transition:opacity 0.35s ease;
+  z-index: 10;
+}
+#popup:target { 
+  opacity:1; 
+  pointer-events:all; 
+}
+.win95-window {
+  background:#c0c0c0; 
+  border:2px solid #fff;
+  box-shadow: inset -2px -2px 0 #808080, inset 2px 2px 0 #dfdfdf,
+              0 0 0 1px black, 8px 8px 16px rgba(0,0,0,0.25);
+  width:auto; 
+  max-width:80vw; 
+  transform:scale(0.9); 
+  opacity:0; 
+  animation:popIn 0.25s ease forwards;
+}
+@keyframes popIn {
+  0%{transform:scale(0.9);opacity:0;}
+  60%{transform:scale(1.05);opacity:1;}
+  100%{transform:scale(1);opacity:1;}
+}
+.titlebar { 
+  background:linear-gradient(to right, #000000,#000000); 
+  color:#fff; 
+  font-family:'IBM Plex Mono',monospace; 
+  font-size:14px; 
+  padding:4px 8px; 
+  display:flex; 
+  align-items:center; 
+  justify-content:space-between; 
+}
+.titlebar span { font-weight:bold; }
+.close-btn {
+  background:#c0c0c0; 
+  border:2px solid #fff;
+  box-shadow: inset -1px -1px 0 #808080, inset 1px 1px 0 #dfdfdf;
+  color:black; 
+  font-family:sans-serif; 
+  font-size:14px; 
+  line-height:14px;
+  width:18px; 
+  height:18px; 
+  text-align:center; 
+  text-decoration:none;
+}
+.close-btn:hover { background:#dfdfdf; }
+.content { padding:6px; background:#c0c0c0; }
+.content img { 
+  display:block; 
+  max-width:70vw; 
+  max-height:70vh; 
+  background:white; 
+  border:1px solid #000; 
+}
+
+/* ---------- SDA Typing oben links ---------- */
+.typewriter {
+  position: fixed; 
+  top:10px; 
+  left:30px; 
+  font-family:'Special Elite','IBM Plex Mono',monospace;
+  font-size:2rem; 
+  white-space:nowrap; 
+  overflow:visible; 
+  z-index:10;
+}
+span.blink-dot { 
+  animation: blinkForever 1s step-start infinite; 
+  margin-left:2px; 
+}
+@keyframes blinkForever { 
+  0%,50%,100%{opacity:1;} 
+  25%,75%{opacity:0;} 
+}
+
+/* ---------- Footer für Impressum / DSGVO ---------- */
+.footer {
+  position: fixed;
+  bottom: 5px;
+  right: 10px;
+  font-family: 'Special Elite','IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: #888888;
+  text-align: right;
+  max-width: 250px;
+  z-index: 20;
+}
+.footer a {
+  color: #888888;
+  text-decoration: underline;
+}
+.footer a:hover {
+  color: #aaa;
+}
+
+/* ---------- Responsive Anpassungen ---------- */
+@media (max-width:1024px){
+  .logo.hansgpunkt img { width: 180px; }
+  .logo.meyks img { width: 70px; }
+  .logo.SenorSonate img { width: 110px; }
+}
+@media (max-width:768px){
+  html,body { overflow:auto; }
+  .desktop-icon { top:55%; left:50%; transform:translate(-50%,-50%); }
+  .desktop-icon .icon { width:40px; height:40px; }
+  .desktop-icon .label { font-size:12px; }
+  .win95-window { max-width:90vw; }
+  .content img { max-width:85vw; max-height:60vh; }
+  .typewriter { font-size:1.6rem; top:5px; left:10px; }
+  .footer { font-size:8px; max-width:150px; right:5px; bottom:4px; }
+  .logo.hansgpunkt { top: 85%; left: 40%; }
+  .logo.meyks { top: 88%; left: 55%; }
+  .logo.SenorSonate { top: 91%; left: 35%; }
+  .logo.hansgpunkt img { width: 150px; }
+  .logo.meyks img { width: 60px; }
+  .logo.SenorSonate img { width: 100px; }
+}
+@media (max-width:480px){
+  .typewriter { font-size:1.2rem; top:5px; left:5px; }
+  .desktop-icon .label { font-size:10px; }
+  .logo.hansgpunkt img { width: 120px; }
+  .logo.meyks img { width: 50px; }
+  .logo.SenorSonate img { width: 80px; }
+  .footer { font-size:7px; max-width:130px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Unabhängige Logos -->
+<div class="logo hansgpunkt">
+  <a href="https://www.instagram.com/hanzgpunkt/" target="_blank">
+    <img src="assets/logo.gif" alt="Logo Hansgpunkt">
+  </a>
+</div>
+<div class="logo meyks">
+  <a href="https://www.instagram.com/prod.meyks/" target="_blank">
+    <img src="assets/meyksnew.png" alt="Logo Meyks">
+  </a>
+</div>
+<div class="logo SenorSonate">
+  <a href="https://www.instagram.com/enoronate/" target="_blank">
+    <img src="assets/Senorplatzhalter.png" alt="Logo SenorSonate">
+  </a>
+</div>
+
+<!-- SDA Typing oben links -->
+<h1 class="typewriter" id="typewriter"></h1>
+
+<!-- Desktop-Icon mittig -->
+<div class="desktop-icon">
+  <a href="#popup" title="öffne starkbier.gif">
+    <img class="icon" src="assets/Floppy.png" alt="Floppy Disc Icon">
+    <div class="label">starkbier.gif</div>
+  </a>
+</div>
+
+<!-- Popup / Win95-Fenster -->
+<div id="popup">
+  <div class="win95-window">
+    <div class="titlebar">
+      <span>starkbier.gif</span>
+      <a href="#" class="close-btn">×</a>
+    </div>
+    <div class="content">
+      <img src="assets/Starkbier.gif" alt="starkbier gif">
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <p>
+    &copy; 2025 KAFFAKOILEKTIV | 
+    <a href="https://www.instagram.com/hanzgpunkt/" target="_blank">Hansgpunkt</a>, 
+    <a href="https://www.instagram.com/prod.meyks/" target="_blank">Meyks</a>, 
+    <a href="https://www.instagram.com/enoronate/" target="_blank">SenorSonate</a> | 
+    Alle Links führen zu externen Plattformen. Keine Datenweitergabe durch uns.
+  </p>
+</div>
+
+<script>
+// Schreibmaschinen-Animation
+const typewriter = document.getElementById('typewriter');
+function randDelay(min,max){ return Math.floor(Math.random()*(max-min))+min; }
+async function typeSequence() {
+  const sequence = ['S','D','A','.','.','.', 'deleteDots3', ' ','[','A','T',']','•'];
+  for(let item of sequence){
+    if(item.startsWith('deleteDots')){
+      let count = parseInt(item.replace('deleteDots',''));
+      for(let i=0;i<count;i++){
+        await new Promise(r=>setTimeout(r, randDelay(150,300)));
+        const dots = Array.from(typewriter.querySelectorAll('span:not(.blink-dot)'));
+        const dotIndex = dots.findIndex(s=>s.textContent==='.');
+        if(dotIndex>=0) dots[dotIndex].remove();
+      }
+    } else {
+      await new Promise(r=>setTimeout(r, randDelay(200,500)));
+      const span = document.createElement('span');
+      span.textContent = item;
+      if(item==='•') span.classList.add('blink-dot');
+      typewriter.appendChild(span);
+    }
+  }
+}
+typeSequence();
+</script>
+
+</body>
+</html>
