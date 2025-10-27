@@ -13,41 +13,34 @@ html, body {
   background-color:#c0c0c0;
   font-family:'Special Elite','IBM Plex Mono',monospace;
   overflow-x:hidden;
-  position:relative;
   background-image:
     linear-gradient(to right, rgba(60,40,10,0.1) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(60,40,10,0.1) 1px, transparent 1px);
   background-size: 14px 14px;
   color:#2b1d0e;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
 }
 
-/* ---------- Bereich über Footer ---------- */
-.logo-container {
-  display:flex;
-  justify-content:center;
-  align-items:flex-end;
-  gap:30px;
-  flex-wrap:wrap;
-  margin-bottom:5px; /* Abstand 5px über dem Footer */
+/* ---------- SDA Typing ---------- */
+.typewriter {
+  position: fixed; 
+  top:2vh; 
+  left:3vw; 
+  font-family:'Special Elite','IBM Plex Mono',monospace;
+  font-size:2.5vw; 
+  white-space:nowrap; 
+  overflow:visible; 
+  z-index:10;
+}
+span.blink-dot { 
+  animation: blinkForever 1s step-start infinite; 
+  margin-left:2px; 
+}
+@keyframes blinkForever { 
+  0%,50%,100%{opacity:1;} 
+  25%,75%{opacity:0;} 
 }
 
-/* ---------- Einzelne Logos ---------- */
-.logo img {
-  height:auto;
-  transition:transform 0.25s ease, filter 0.25s ease;
-}
-.logo img:hover {
-  transform:scale(1.05);
-  filter:brightness(1.2);
-}
-.logo.hansgpunkt img { width: 250px; }
-.logo.meyks img { width: 90px; }
-.logo.SenorSonate img { width: 150px; }
-
-/* ---------- Desktop Icon mittig ---------- */
+/* ---------- Desktop Icon ---------- */
 .desktop-icon {
   position: absolute;
   top: 50%;
@@ -59,25 +52,25 @@ html, body {
   z-index: 5;
 }
 .icon {
-  width:48px;
-  height:48px;
+  width:6vw;
+  height:6vw;
   cursor:pointer;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
-  border:2px solid #fff;
-  box-shadow: -2px -2px 0 #808080, 2px 2px 0 #dfdfdf;
+  border:0.25vw solid #fff;
+  box-shadow: -0.25vw -0.25vw 0 #808080, 0.25vw 0.25vw 0 #dfdfdf;
   background:#c0c0c0;
 }
 .icon:hover {
   transform:scale(1.1);
-  box-shadow: -2px -2px 0 #808080, 2px 2px 0 #dfdfdf, 0 0 6px rgba(255,255,255,0.6);
+  box-shadow: -0.25vw -0.25vw 0 #808080, 0.25vw 0.25vw 0 #dfdfdf, 0 0 0.5vw rgba(255,255,255,0.6);
 }
 .label { 
-  margin-top:8px; 
-  font-size:14px; 
-  text-shadow:1px 1px 0 rgba(255,255,255,0.8); 
+  margin-top:1vh; 
+  font-size:1.3vw; 
+  text-shadow:0.1vw 0.1vw 0 rgba(255,255,255,0.8); 
 }
 
-/* ---------- Popup / Win95-Fenster ---------- */
+/* ---------- Popup ---------- */
 #popup { 
   position:absolute; 
   inset:0; 
@@ -97,7 +90,7 @@ html, body {
   background:#c0c0c0; 
   border:2px solid #fff;
   box-shadow: inset -2px -2px 0 #808080, inset 2px 2px 0 #dfdfdf,
-              0 0 0 1px black, 8px 8px 16px rgba(0,0,0,0.25);
+              0 0 0 1px black, 0.5vw 0.5vw 1vw rgba(0,0,0,0.25);
   width:auto; 
   max-width:80vw; 
   transform:scale(0.9); 
@@ -113,28 +106,26 @@ html, body {
   background:linear-gradient(to right, #000000,#000000); 
   color:#fff; 
   font-family:'IBM Plex Mono',monospace; 
-  font-size:14px; 
-  padding:4px 8px; 
+  font-size:1.2vw; 
+  padding:0.4vw 0.8vw; 
   display:flex; 
   align-items:center; 
   justify-content:space-between; 
 }
-.titlebar span { font-weight:bold; }
 .close-btn {
   background:#c0c0c0; 
   border:2px solid #fff;
   box-shadow: inset -1px -1px 0 #808080, inset 1px 1px 0 #dfdfdf;
   color:black; 
-  font-family:sans-serif; 
-  font-size:14px; 
-  line-height:14px;
-  width:18px; 
-  height:18px; 
+  font-size:1.2vw; 
+  width:2vw; 
+  height:2vw; 
+  line-height:1.8vw;
   text-align:center; 
   text-decoration:none;
 }
 .close-btn:hover { background:#dfdfdf; }
-.content { padding:6px; background:#c0c0c0; }
+.content { padding:0.5vw; background:#c0c0c0; }
 .content img { 
   display:block; 
   max-width:70vw; 
@@ -143,64 +134,73 @@ html, body {
   border:1px solid #000; 
 }
 
-/* ---------- SDA Typing oben links ---------- */
-.typewriter {
-  position: fixed; 
-  top:10px; 
-  left:30px; 
-  font-family:'Special Elite','IBM Plex Mono',monospace;
-  font-size:2rem; 
-  white-space:nowrap; 
-  overflow:visible; 
-  z-index:10;
-}
-span.blink-dot { 
-  animation: blinkForever 1s step-start infinite; 
-  margin-left:2px; 
-}
-@keyframes blinkForever { 
-  0%,50%,100%{opacity:1;} 
-  25%,75%{opacity:0;} 
-}
-
-/* ---------- Footer ---------- */
-.footer {
+/* ---------- Logo-Footer ---------- */
+.logo-footer {
+  position: fixed;
+  bottom: 5vh;
   width: 100%;
-  height: 3vh; /* Footer nimmt 3% der Seite */
-  padding: 4px 15px;
-  box-sizing: border-box;
-  font-family: 'Special Elite','IBM Plex Mono', monospace;
-  font-size: 10px;
-  color: #888888;
-  text-align: right;
+  height: 5vh;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5vw;
+  z-index: 15;
+}
+.logo-footer img {
+  height: auto;
+  max-height: 4.5vh;
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
+.logo-footer img:hover {
+  transform: scale(1.05);
+  filter: brightness(1.2);
+}
+.logo-footer .hansgpunkt img { width: 13vw; }
+.logo-footer .meyks img { width: 6vw; }
+.logo-footer .SenorSonate img { width: 8vw; }
+
+/* ---------- Impressum Footer ---------- */
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 3vh;
   background: transparent;
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  padding-right: 2vw;
+  font-family: 'Special Elite','IBM Plex Mono', monospace;
+  font-size: 1vw;
+  color: #888;
+  text-align: right;
+  z-index: 10;
 }
 .footer a {
-  color: #888888;
+  color: #888;
   text-decoration: underline;
 }
 .footer a:hover {
   color: #aaa;
 }
 
-/* ---------- Responsive Anpassungen ---------- */
+/* ---------- Responsive Feintuning ---------- */
 @media (max-width:768px){
-  .logo.hansgpunkt img { width: 180px; }
-  .logo.meyks img { width: 70px; }
-  .logo.SenorSonate img { width: 120px; }
-  .footer { font-size: 8px; text-align: center; justify-content: center; }
+  .typewriter { font-size:5vw; top:2vh; left:5vw; }
+  .icon { width:15vw; height:15vw; }
+  .label { font-size:3vw; }
+  .footer { font-size:2.5vw; padding-right:4vw; justify-content:center; text-align:center; }
+  .logo-footer { gap:8vw; bottom:6vh; }
+  .logo-footer img { max-height:5vh; }
 }
 </style>
 </head>
 <body>
 
-<!-- SDA Typing -->
 <h1 class="typewriter" id="typewriter"></h1>
 
-<!-- Desktop-Icon mittig -->
+<!-- Desktop-Icon -->
 <div class="desktop-icon">
   <a href="#popup">
     <img class="icon" src="assets/Floppy.png" alt="Floppy Disc Icon">
@@ -221,8 +221,8 @@ span.blink-dot {
   </div>
 </div>
 
-<!-- Logos direkt über Footer -->
-<div class="logo-container">
+<!-- Logo-Footer -->
+<div class="logo-footer">
   <div class="logo hansgpunkt">
     <a href="https://www.instagram.com/hanzgpunkt/" target="_blank">
       <img src="assets/logo.gif" alt="Logo Hansgpunkt">
@@ -240,7 +240,7 @@ span.blink-dot {
   </div>
 </div>
 
-<!-- Footer -->
+<!-- Impressum -->
 <div class="footer">
   <p>
     &copy; 2025 KAFFAKOILEKTIV | 
