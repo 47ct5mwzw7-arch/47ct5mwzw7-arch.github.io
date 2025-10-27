@@ -9,17 +9,17 @@
 <style>
 :root {
   /* ====== Manuelle Justierung der Logos ====== */
-  --hansgpunkt-size: 17vh;
-  --hansgpunkt-left: 55%;
-  --hansgpunkt-bottom: 3%;
+  --senorsonate-size: 8;   /* Breite in vw */
+  --senorsonate-left: 25;  /* Position von links in % */
+  --senorsonate-bottom: 8; /* Abstand vom unteren Rand in vh */
 
-  --meyks-size: 9vh;
-  --meyks-left: 50%;
-  --meyks-bottom: 7%;
+  --meyks-size: 8;
+  --meyks-left: 50;
+  --meyks-bottom: 8;
 
-  --senorsonate-size: 5vh;
-  --senorsonate-left: 30%;
-  --senorsonate-bottom: 8%;
+  --hansgpunkt-size: 8;
+  --hansgpunkt-left: 75;
+  --hansgpunkt-bottom: 8;
 }
 
 /* ====== Grundlayout ====== */
@@ -44,24 +44,47 @@ html, body {
   z-index: 5;
   transition: transform 0.25s ease, filter 0.25s ease;
 }
+
 .logo img:hover {
   transform: scale(1.08);
   filter: brightness(1.15);
 }
-.logo.hansgpunkt { left: var(--hansgpunkt-left); bottom: var(--hansgpunkt-bottom);}
-.logo.hansgpunkt img { height: var(--hansgpunkt-size); width:auto; }
-.logo.meyks { left: var(--meyks-left); bottom: var(--meyks-bottom);}
-.logo.meyks img { height: var(--meyks-size); width:auto; }
-.logo.SenorSonate { left: var(--senorsonate-left); bottom: var(--senorsonate-bottom);}
-.logo.SenorSonate img { height: var(--senorsonate-size); width:auto; }
 
-/* ====== Footer ====== */
+/* Positionen und Größen relativ zum Viewport */
+.logo.SenorSonate {
+  left: calc(var(--senorsonate-left) * 1%);
+  bottom: calc(var(--senorsonate-bottom) * 1vh);
+}
+.logo.SenorSonate img {
+  width: calc(var(--senorsonate-size) * 1vw);
+  height: auto;
+}
+
+.logo.meyks {
+  left: calc(var(--meyks-left) * 1%);
+  bottom: calc(var(--meyks-bottom) * 1vh);
+}
+.logo.meyks img {
+  width: calc(var(--meyks-size) * 1vw);
+  height: auto;
+}
+
+.logo.hansgpunkt {
+  left: calc(var(--hansgpunkt-left) * 1%);
+  bottom: calc(var(--hansgpunkt-bottom) * 1vh);
+}
+.logo.hansgpunkt img {
+  width: calc(var(--hansgpunkt-size) * 1vw);
+  height: auto;
+}
+
+/* ====== Footer (transparent) ====== */
 .footer {
   position: fixed;
   bottom: 0;
   width: 100%;
   height: 3%;
-  background: rgba(192,192,192,0.15);
+  background: rgba(192, 192, 192, 0.15);
   text-align: right;
   padding: 5px 15px;
   font-size: 10px;
@@ -69,8 +92,13 @@ html, body {
   z-index: 20;
   font-family: 'Special Elite','IBM Plex Mono', monospace;
 }
-.footer a { color:#888; text-decoration:underline; }
-.footer a:hover { color:#aaa; }
+.footer a {
+  color: #888;
+  text-decoration: underline;
+}
+.footer a:hover {
+  color: #aaa;
+}
 
 /* ====== Typing oben links ====== */
 .typewriter {
@@ -81,8 +109,14 @@ html, body {
   white-space: nowrap;
   z-index: 10;
 }
-span.blink-dot { animation: blinkForever 1s step-start infinite; margin-left:2px; }
-@keyframes blinkForever { 0%,50%,100%{opacity:1;} 25%,75%{opacity:0;} }
+span.blink-dot {
+  animation: blinkForever 1s step-start infinite;
+  margin-left: 2px;
+}
+@keyframes blinkForever {
+  0%,50%,100%{opacity:1;}
+  25%,75%{opacity:0;}
+}
 
 /* ====== Desktop Icon / Win95 Fenster ====== */
 .desktop-icon {
@@ -102,81 +136,96 @@ span.blink-dot { animation: blinkForever 1s step-start infinite; margin-left:2px
   background: #c0c0c0;
   box-shadow: -2px -2px 0 #808080, 2px 2px 0 #dfdfdf;
 }
-.icon:hover { transform: scale(1.1); box-shadow: 0 0 6px rgba(255,255,255,0.6); }
-.label { margin-top:8px; font-size:14px; text-shadow:1px 1px 0 rgba(255,255,255,0.8); }
+.icon:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 6px rgba(255,255,255,0.6);
+}
+.label {
+  margin-top: 8px;
+  font-size: 14px;
+  text-shadow: 1px 1px 0 rgba(255,255,255,0.8);
+}
 
 #popup {
-  position: fixed;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  opacity:0;
-  pointer-events:none;
-  transition:opacity 0.35s ease;
-  z-index: 15;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
 }
 #popup:target {
-  opacity:1;
+  opacity: 1;
   pointer-events: all;
 }
-
-/* ====== Win95-Rahmen korrekt ====== */
 .win95-window {
-  background:#c0c0c0;
-  border:2px solid #000;
-  box-shadow: inset -2px -2px 0 #fff, inset 2px 2px 0 #808080;
+  background: #c0c0c0;
+  border: 2px solid #fff;
+  box-shadow:
+    inset -2px -2px 0 #808080,
+    inset 2px 2px 0 #dfdfdf,
+    0 0 0 1px black;
   animation: popIn 0.25s ease forwards;
-  max-width:80vw;
-  max-height:80vh;
-  overflow:auto;
+  max-width: 80vw;
 }
-.titlebar {
-  background: linear-gradient(to right,#000,#000);
-  color:#fff;
-  font-family:'IBM Plex Mono', monospace;
-  font-size:14px;
-  padding:4px 8px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  border-bottom: 2px solid #fff;
-  box-shadow: inset -1px -1px 0 #fff, inset 1px 1px 0 #808080;
-}
-.content img {
-  display:block;
-  max-width:90%;
-  max-height:60vh;
-  margin:auto;
-  border:1px solid #000;
-}
-
 @keyframes popIn {
-  0% {transform: scale(0.9); opacity:0;}
-  60% {transform: scale(1.05); opacity:1;}
-  100% {transform: scale(1); opacity:1;}
+  0% {transform: scale(0.9); opacity: 0;}
+  60% {transform: scale(1.05); opacity: 1;}
+  100% {transform: scale(1); opacity: 1;}
 }
 
 /* ====== Mobile Anpassungen ====== */
-@media(max-width:768px){
-  .typewriter { font-size:1.6rem; left:10px; top:5px; }
-  .footer { font-size:8px; padding-right:8px; }
+@media (max-width: 768px) {
+  .typewriter {
+    font-size: 1.6rem;
+    left: 10px;
+    top: 5px;
+  }
+  .footer {
+    font-size: 8px;
+    padding-right: 8px;
+  }
   :root {
-    --hansgpunkt-size: 12vh; --hansgpunkt-left:60%; --hansgpunkt-bottom:6%;
-    --meyks-size: 9vh; --meyks-left:43%; --meyks-bottom:6%;
-    --senorsonate-size:8vh; --senorsonate-left:26%; --senorsonate-bottom:6%;
+    --senorsonate-size: 18;
+    --senorsonate-left: 15;
+    --senorsonate-bottom: 6;
+
+    --meyks-size: 18;
+    --meyks-left: 50;
+    --meyks-bottom: 6;
+
+    --hansgpunkt-size: 18;
+    --hansgpunkt-left: 85;
+    --hansgpunkt-bottom: 6;
   }
 }
 </style>
 </head>
+
 <body>
 
 <!-- Logos -->
-<div class="logo hansgpunkt"><a href="https://www.instagram.com/hanzgpunkt/" target="_blank"><img src="assets/logo.gif" alt="Hansgpunkt Logo"></a></div>
-<div class="logo meyks"><a href="https://www.instagram.com/prod.meyks/" target="_blank"><img src="assets/meyksnew.png" alt="Meyks Logo"></a></div>
-<div class="logo SenorSonate"><a href="https://www.instagram.com/enoronate/" target="_blank"><img src="assets/Senorplatzhalter.png" alt="SenorSonate Logo"></a></div>
+<div class="logo SenorSonate">
+  <a href="https://www.instagram.com/enoronate/" target="_blank">
+    <img src="assets/Senorplatzhalter.png" alt="SenorSonate Logo">
+  </a>
+</div>
 
-<!-- SDA Typewriter -->
+<div class="logo meyks">
+  <a href="https://www.instagram.com/prod.meyks/" target="_blank">
+    <img src="assets/meyksnew.png" alt="Meyks Logo">
+  </a>
+</div>
+
+<div class="logo hansgpunkt">
+  <a href="https://www.instagram.com/hanzgpunkt/" target="_blank">
+    <img src="assets/logo.gif" alt="Hansgpunkt Logo">
+  </a>
+</div>
+
+<!-- SDA Typing -->
 <h1 class="typewriter" id="typewriter"></h1>
 
 <!-- Desktop Icon -->
@@ -202,34 +251,35 @@ span.blink-dot { animation: blinkForever 1s step-start infinite; margin-left:2px
 
 <!-- Footer -->
 <div class="footer">
-<p>
-&copy; 2025 KAFFAKOILEKTIV |
-<a href="https://www.instagram.com/hanzgpunkt/" target="_blank">Hansgpunkt</a>,
-<a href="https://www.instagram.com/prod.meyks/" target="_blank">Meyks</a>,
-<a href="https://www.instagram.com/enoronate/" target="_blank">SenorSonate</a> |
-Keine Datenerhebung oder Weitergabe.
-</p>
+  <p>
+    &copy; 2025 KAFFAKOILEKTIV |
+    <a href="https://www.instagram.com/hanzgpunkt/" target="_blank">Hansgpunkt</a>,
+    <a href="https://www.instagram.com/prod.meyks/" target="_blank">Meyks</a>,
+    <a href="https://www.instagram.com/enoronate/" target="_blank">SenorSonate</a> |
+    Keine Datenerhebung oder Weitergabe.
+  </p>
 </div>
 
 <script>
-// SDA Typewriter Animation
+// SDA Typewriter
 const typewriter = document.getElementById('typewriter');
-function randDelay(min,max){ return Math.floor(Math.random()*(max-min))+min; }
-async function typeSequence(){
-  const sequence=['S','D','A','.','.','.', 'deleteDots3', ' ','[','A','T',']','•'];
+function randDelay(min, max){ return Math.floor(Math.random() * (max - min)) + min; }
+
+async function typeSequence() {
+  const sequence = ['S','D','A','.','.','.', 'deleteDots3', ' ','[','A','T',']','•'];
   for(let item of sequence){
     if(item.startsWith('deleteDots')){
-      let count=parseInt(item.replace('deleteDots',''));
+      let count = parseInt(item.replace('deleteDots',''));
       for(let i=0;i<count;i++){
-        await new Promise(r=>setTimeout(r,randDelay(150,300)));
-        const dots=Array.from(typewriter.querySelectorAll('span:not(.blink-dot)'));
-        const dotIndex=dots.findIndex(s=>s.textContent==='.');
+        await new Promise(r=>setTimeout(r, randDelay(150,300)));
+        const dots = Array.from(typewriter.querySelectorAll('span:not(.blink-dot)'));
+        const dotIndex = dots.findIndex(s=>s.textContent==='.');
         if(dotIndex>=0) dots[dotIndex].remove();
       }
     } else {
-      await new Promise(r=>setTimeout(r,randDelay(200,500)));
-      const span=document.createElement('span');
-      span.textContent=item;
+      await new Promise(r=>setTimeout(r, randDelay(200,500)));
+      const span = document.createElement('span');
+      span.textContent = item;
       if(item==='•') span.classList.add('blink-dot');
       typewriter.appendChild(span);
     }
@@ -237,5 +287,6 @@ async function typeSequence(){
 }
 typeSequence();
 </script>
+
 </body>
 </html>
