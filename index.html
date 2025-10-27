@@ -12,7 +12,7 @@ html, body {
   padding:0;
   background-color:#c0c0c0;
   font-family:'Special Elite','IBM Plex Mono',monospace;
-  overflow:hidden;
+  overflow-x:hidden;
   position:relative;
   background-image:
     linear-gradient(to right, rgba(60,40,10,0.1) 1px, transparent 1px),
@@ -21,32 +21,52 @@ html, body {
   color:#2b1d0e;
 }
 
-/* ---------- Logos unten dynamisch ---------- */
-.logos-container {
-  position: fixed;
-  bottom: 2%;
-  left: 50%;
-  transform: translateX(-50%);
+/* ---------- Logos + Footer unten ---------- */
+.footer-wrapper {
   display: flex;
-  gap: 2vw;
+  justify-content: space-between;
   align-items: flex-end;
-  justify-content: center;
   flex-wrap: wrap;
-  z-index: 5;
+  width: 100%;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  position: relative;
+  bottom: 0;
+}
+
+.logo-row {
+  display: flex;
+  gap: 20px;
+  align-items: flex-end;
 }
 
 .logo {
+  display: inline-block;
   transition: transform 0.25s ease, filter 0.25s ease;
 }
 .logo img {
-  height: auto;
-  width: 12vw;
-  max-width: 180px;
-  min-width: 60px;
+  height: 80px;
+  width: auto;
 }
 .logo img:hover {
   transform: scale(1.05);
   filter: brightness(1.2);
+}
+
+/* ---------- Footer / Impressum ---------- */
+.footer {
+  font-family: 'Special Elite','IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: #888888;
+  text-align: right;
+  max-width: 250px;
+}
+.footer a {
+  color: #888888;
+  text-decoration: underline;
+}
+.footer a:hover {
+  color: #aaa;
 }
 
 /* ---------- Desktop Icon mittig ---------- */
@@ -121,11 +141,13 @@ html, body {
   align-items:center; 
   justify-content:space-between; 
 }
+.titlebar span { font-weight:bold; }
 .close-btn {
   background:#c0c0c0; 
   border:2px solid #fff;
   box-shadow: inset -1px -1px 0 #808080, inset 1px 1px 0 #dfdfdf;
   color:black; 
+  font-family:sans-serif; 
   font-size:14px; 
   line-height:14px;
   width:18px; 
@@ -148,6 +170,7 @@ html, body {
   position: fixed; 
   top:10px; 
   left:30px; 
+  font-family:'Special Elite','IBM Plex Mono',monospace;
   font-size:2rem; 
   white-space:nowrap; 
   overflow:visible; 
@@ -162,70 +185,21 @@ span.blink-dot {
   25%,75%{opacity:0;} 
 }
 
-/* ---------- Footer ---------- */
-.footer {
-  position: fixed;
-  bottom: 5px;
-  right: 10px;
-  font-size: 10px;
-  color: #888888;
-  text-align: right;
-  max-width: 250px;
-  z-index: 20;
-}
-.footer a {
-  color: #888888;
-  text-decoration: underline;
-}
-.footer a:hover {
-  color: #aaa;
-}
-
-/* ---------- Mobile Optimierung ---------- */
+/* ---------- Responsive ---------- */
 @media (max-width:768px){
-  .typewriter{font-size:1.4rem;top:5px;left:10px;}
-  .icon{width:36px;height:36px;}
-  .label{font-size:12px;}
-  .win95-window{max-width:90vw;}
-  .content img{max-width:85vw; max-height:60vh;}
-  .logos-container{
-    bottom: 1%;
-    gap: 4vw;
-    flex-wrap: wrap;
-  }
-  .logo img{
-    width: 20vw;
-    max-width: 120px;
-  }
-  .footer{font-size:8px;max-width:150px;}
+  .logo img { height: 50px; }
+  .footer { font-size: 8px; max-width: 160px; }
+  .footer-wrapper { flex-direction: column; align-items: center; text-align: center; gap: 10px; }
+  .logo-row { justify-content: center; flex-wrap: wrap; }
 }
 </style>
 </head>
 <body>
 
-<!-- Logos -->
-<div class="logos-container">
-  <div class="logo hansgpunkt">
-    <a href="https://www.instagram.com/hanzgpunkt/" target="_blank">
-      <img src="assets/logo.gif" alt="Logo Hansgpunkt">
-    </a>
-  </div>
-  <div class="logo meyks">
-    <a href="https://www.instagram.com/prod.meyks/" target="_blank">
-      <img src="assets/meyksnew.png" alt="Logo Meyks">
-    </a>
-  </div>
-  <div class="logo SenorSonate">
-    <a href="https://www.instagram.com/enoronate/" target="_blank">
-      <img src="assets/Senorplatzhalter.png" alt="Logo SenorSonate">
-    </a>
-  </div>
-</div>
-
-<!-- Typing -->
+<!-- SDA Typing -->
 <h1 class="typewriter" id="typewriter"></h1>
 
-<!-- Desktop Icon -->
+<!-- Desktop-Icon -->
 <div class="desktop-icon">
   <a href="#popup">
     <img class="icon" src="assets/Floppy.png" alt="Floppy Disc Icon">
@@ -246,41 +220,62 @@ span.blink-dot {
   </div>
 </div>
 
-<!-- Footer -->
-<div class="footer">
-  <p>
-    &copy; 2025 KAFFAKOILEKTIV | 
-    <a href="https://www.instagram.com/hanzgpunkt/" target="_blank">Hansgpunkt</a>, 
-    <a href="https://www.instagram.com/prod.meyks/" target="_blank">Meyks</a>, 
-    <a href="https://www.instagram.com/enoronate/" target="_blank">SenorSonate</a> | 
-    Alle Links führen zu externen Plattformen. Keine Datenweitergabe durch uns.
-  </p>
+<!-- Footer-Bereich -->
+<div class="footer-wrapper">
+  <div class="logo-row">
+    <div class="logo">
+      <a href="https://www.instagram.com/hanzgpunkt/" target="_blank">
+        <img src="assets/logo.gif" alt="Logo Hansgpunkt">
+      </a>
+    </div>
+    <div class="logo">
+      <a href="https://www.instagram.com/prod.meyks/" target="_blank">
+        <img src="assets/meyksnew.png" alt="Logo Meyks">
+      </a>
+    </div>
+    <div class="logo">
+      <a href="https://www.instagram.com/enoronate/" target="_blank">
+        <img src="assets/Senorplatzhalter.png" alt="Logo SenorSonate">
+      </a>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>
+      &copy; 2025 KAFFAKOILEKTIV | 
+      <a href="https://www.instagram.com/hanzgpunkt/" target="_blank">Hansgpunkt</a>, 
+      <a href="https://www.instagram.com/prod.meyks/" target="_blank">Meyks</a>, 
+      <a href="https://www.instagram.com/enoronate/" target="_blank">SenorSonate</a> | 
+      Alle Links führen zu externen Plattformen. Keine Datenweitergabe durch uns.
+    </p>
+  </div>
 </div>
 
 <script>
 const typewriter = document.getElementById('typewriter');
-function randDelay(min,max){return Math.floor(Math.random()*(max-min))+min;}
-async function typeSequence(){
-  const sequence=['S','D','A','.','.','.','deleteDots3',' ','[','A','T',']','•'];
+function randDelay(min,max){ return Math.floor(Math.random()*(max-min))+min; }
+async function typeSequence() {
+  const sequence = ['S','D','A','.','.','.', 'deleteDots3', ' ','[','A','T',']','•'];
   for(let item of sequence){
     if(item.startsWith('deleteDots')){
-      let count=parseInt(item.replace('deleteDots',''));
+      let count = parseInt(item.replace('deleteDots',''));
       for(let i=0;i<count;i++){
-        await new Promise(r=>setTimeout(r,randDelay(150,300)));
-        const dots=Array.from(typewriter.querySelectorAll('span:not(.blink-dot)'));
-        const dotIndex=dots.findIndex(s=>s.textContent==='.');
-        if(dotIndex>=0)dots[dotIndex].remove();
+        await new Promise(r=>setTimeout(r, randDelay(150,300)));
+        const dots = Array.from(typewriter.querySelectorAll('span:not(.blink-dot)'));
+        const dotIndex = dots.findIndex(s=>s.textContent==='.');
+        if(dotIndex>=0) dots[dotIndex].remove();
       }
     } else {
-      await new Promise(r=>setTimeout(r,randDelay(200,500)));
-      const span=document.createElement('span');
-      span.textContent=item;
-      if(item==='•')span.classList.add('blink-dot');
+      await new Promise(r=>setTimeout(r, randDelay(200,500)));
+      const span = document.createElement('span');
+      span.textContent = item;
+      if(item==='•') span.classList.add('blink-dot');
       typewriter.appendChild(span);
     }
   }
 }
 typeSequence();
 </script>
+
 </body>
 </html>
