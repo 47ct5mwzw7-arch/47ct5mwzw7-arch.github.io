@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KAFFAKOILEKTIV</title>
+<title>SDA Desktop</title>
 <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
 html, body {
@@ -12,7 +12,8 @@ html, body {
   padding:0;
   background-color:#c0c0c0;
   font-family:'Special Elite','IBM Plex Mono',monospace;
-  overflow-x:hidden;
+  overflow:hidden;
+  position:relative;
   background-image:
     linear-gradient(to right, rgba(60,40,10,0.1) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(60,40,10,0.1) 1px, transparent 1px);
@@ -20,200 +21,191 @@ html, body {
   color:#2b1d0e;
 }
 
-/* ---------- SDA Typing ---------- */
-.typewriter {
-  position: fixed;
-  top: 2vh;
-  left: 3vw;
-  font-family: 'Special Elite','IBM Plex Mono', monospace;
-  font-size: 2.5vw;
-  white-space: nowrap;
-  overflow: visible;
-  z-index: 10;
-}
-span.blink-dot {
-  animation: blinkForever 1s step-start infinite;
-  margin-left: 2px;
-}
-@keyframes blinkForever {
-  0%,50%,100% {opacity:1;}
-  25%,75% {opacity:0;}
-}
-
-/* ---------- Desktop Icon ---------- */
+/* ---------- Desktop Icon mittig ---------- */
 .desktop-icon {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  z-index: 5;
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  z-index:5;
 }
 .icon {
-  width: 6vw;
-  height: 6vw;
-  cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-  border: 0.25vw solid #fff;
-  box-shadow: -0.25vw -0.25vw 0 #808080, 0.25vw 0.25vw 0 #dfdfdf;
-  background: #c0c0c0;
+  width:48px;
+  height:48px;
+  cursor:pointer;
+  transition:transform 0.15s ease, box-shadow 0.15s ease;
+  border:2px solid #fff;
+  box-shadow:-2px -2px 0 #808080,2px 2px 0 #dfdfdf;
+  background:#c0c0c0;
 }
 .icon:hover {
-  transform: scale(1.1);
-  box-shadow: -0.25vw -0.25vw 0 #808080, 0.25vw 0.25vw 0 #dfdfdf, 0 0 0.5vw rgba(255,255,255,0.6);
+  transform:scale(1.1);
+  box-shadow:-2px -2px 0 #808080,2px 2px 0 #dfdfdf,0 0 6px rgba(255,255,255,0.6);
 }
-.label {
-  margin-top: 1vh;
-  font-size: 1.3vw;
-  text-shadow: 0.1vw 0.1vw 0 rgba(255,255,255,0.8);
+.label { 
+  margin-top:8px; 
+  font-size:14px; 
+  text-shadow:1px 1px 0 rgba(255,255,255,0.8); 
 }
 
-/* ---------- Popup Window ---------- */
-#popup {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.35s ease;
-  z-index: 10;
+/* ---------- Popup / Win95-Fenster ---------- */
+#popup { 
+  position:absolute; 
+  inset:0; 
+  display:flex; 
+  align-items:center; 
+  justify-content:center; 
+  opacity:0; 
+  pointer-events:none; 
+  transition:opacity 0.35s ease;
+  z-index:10;
 }
-#popup:target {
-  opacity: 1;
-  pointer-events: all;
+#popup:target { 
+  opacity:1; 
+  pointer-events:all; 
 }
 .win95-window {
-  background: #c0c0c0;
-  border: 2px solid #fff;
-  box-shadow: inset -2px -2px 0 #808080, inset 2px 2px 0 #dfdfdf,
-              0 0 0 1px black, 0.5vw 0.5vw 1vw rgba(0,0,0,0.25);
-  max-width: 90vw;
-  max-height: 85vh;
-  transform: scale(0.9);
-  opacity: 0;
-  animation: popIn 0.25s ease forwards;
-  display: flex;
-  flex-direction: column;
+  background:#c0c0c0; 
+  border:2px solid #fff;
+  box-shadow:inset -2px -2px 0 #808080,inset 2px 2px 0 #dfdfdf,
+              0 0 0 1px black,8px 8px 16px rgba(0,0,0,0.25);
+  width:auto; 
+  max-width:80vw; 
+  transform:scale(0.9); 
+  opacity:0; 
+  animation:popIn 0.25s ease forwards;
 }
 @keyframes popIn {
-  0% {transform: scale(0.9); opacity: 0;}
-  60% {transform: scale(1.05); opacity: 1;}
-  100% {transform: scale(1); opacity: 1;}
+  0%{transform:scale(0.9);opacity:0;}
+  60%{transform:scale(1.05);opacity:1;}
+  100%{transform:scale(1);opacity:1;}
 }
-.titlebar {
-  background: linear-gradient(to right, #000000, #000000);
-  color: #fff;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 1.2vw;
-  padding: 0.4vw 0.8vw;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.titlebar { 
+  background:linear-gradient(to right,#000,#000); 
+  color:#fff; 
+  font-family:'IBM Plex Mono',monospace; 
+  font-size:14px; 
+  padding:4px 8px; 
+  display:flex; 
+  align-items:center; 
+  justify-content:space-between; 
 }
+.titlebar span { font-weight:bold; }
 .close-btn {
-  background: #c0c0c0;
-  border: 2px solid #fff;
-  box-shadow: inset -1px -1px 0 #808080, inset 1px 1px 0 #dfdfdf;
-  color: black;
-  font-size: 1.2vw;
-  width: 2vw;
-  height: 2vw;
-  line-height: 1.8vw;
-  text-align: center;
-  text-decoration: none;
+  background:#c0c0c0; 
+  border:2px solid #fff;
+  box-shadow:inset -1px -1px 0 #808080,inset 1px 1px 0 #dfdfdf;
+  color:black; 
+  font-family:sans-serif; 
+  font-size:14px; 
+  line-height:14px;
+  width:18px; 
+  height:18px; 
+  text-align:center; 
+  text-decoration:none;
 }
-.close-btn:hover { background: #dfdfdf; }
-.content {
-  padding: 0.5vw;
-  background: #c0c0c0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: 1;
+.close-btn:hover { background:#dfdfdf; }
+.content { padding:6px; background:#c0c0c0; }
+.content img { 
+  display:block; 
+  max-width:70vw; 
+  max-height:70vh; 
+  background:white; 
+  border:1px solid #000; 
 }
-.content img {
-  width: 100%;
-  height: auto;
-  max-width: 85vw;
-  max-height: 75vh;
-  object-fit: contain;
-  background: white;
-  border: 1px solid #000;
+
+/* ---------- SDA Typing oben links ---------- */
+.typewriter {
+  position:fixed; 
+  top:10px; 
+  left:30px; 
+  font-family:'Special Elite','IBM Plex Mono',monospace;
+  font-size:2rem; 
+  white-space:nowrap; 
+  overflow:visible; 
+  z-index:10;
+}
+span.blink-dot { 
+  animation:blinkForever 1s step-start infinite; 
+  margin-left:2px; 
+}
+@keyframes blinkForever { 
+  0%,50%,100%{opacity:1;} 
+  25%,75%{opacity:0;} 
 }
 
 /* ---------- Logo-Footer ---------- */
 .logo-footer {
-  position: fixed;
-  bottom: 5vh;
-  width: 100%;
-  height: 8vh;
-  background: transparent;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 5vw;
-  z-index: 15;
+  position:fixed;
+  bottom:3%;
+  left:0;
+  width:100%;
+  height:8vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:3vw;
+  background:transparent;
+  z-index:15;
 }
 .logo-footer img {
-  height: auto;
-  max-height: 7vh;
-  transition: transform 0.25s ease, filter 0.25s ease;
+  max-height:90%;
+  width:auto;
+  height:auto;
+  transition:transform 0.25s ease, filter 0.25s ease;
 }
 .logo-footer img:hover {
-  transform: scale(1.05);
-  filter: brightness(1.2);
+  transform:scale(1.05);
+  filter:brightness(1.2);
 }
-.logo-footer .hansgpunkt img { width: 13vw; }
-.logo-footer .meyks img { width: 6vw; }
-.logo-footer .SenorSonate img { width: 8vw; }
 
-/* ---------- Impressum Footer ---------- */
+/* ---------- Impressum-Footer ---------- */
 .footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  height: 3vh;
-  background: transparent;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding-right: 2vw;
-  font-family: 'Special Elite','IBM Plex Mono',monospace;
-  font-size: 1vw;
-  color: #888;
-  text-align: right;
-  z-index: 10;
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  height:3vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:'Special Elite','IBM Plex Mono',monospace;
+  font-size:10px;
+  color:#888;
+  text-align:center;
+  background:transparent;
+  z-index:20;
 }
 .footer a {
-  color: #888;
-  text-decoration: underline;
+  color:#888;
+  text-decoration:underline;
 }
-.footer a:hover { color: #aaa; }
+.footer a:hover { color:#aaa; }
 
-/* ---------- Responsive Anpassung ---------- */
-@media (max-width:768px) {
-  .typewriter { font-size:5vw; top:2vh; left:5vw; }
-  .icon { width:15vw; height:15vw; }
-  .label { font-size:3vw; }
-  .footer { font-size:2.5vw; padding-right:4vw; justify-content:center; text-align:center; }
-  .logo-footer { gap:8vw; bottom:6vh; height:10vh; }
-  .logo-footer img { max-height:6vh; }
-  .titlebar { font-size:2.5vw; }
-  .close-btn { width:4vw; height:4vw; font-size:3vw; line-height:3.2vw; }
+/* ---------- Responsive Anpassungen ---------- */
+@media (max-width:768px){
+  .desktop-icon .icon{width:40px;height:40px;}
+  .desktop-icon .label{font-size:12px;}
+  .win95-window{max-width:90vw;}
+  .content img{max-width:85vw; max-height:60vh;}
+  .typewriter{font-size:1.6rem;top:5px;left:10px;}
+  .logo-footer{height:8vh;gap:4vw;}
+  .logo-footer img{max-height:80%;}
+  .footer{font-size:8px;}
 }
 </style>
 </head>
 <body>
 
+<!-- SDA Typing -->
 <h1 class="typewriter" id="typewriter"></h1>
 
-<!-- Desktop Icon -->
+<!-- Desktop-Icon -->
 <div class="desktop-icon">
-  <a href="#popup">
+  <a href="#popup" title="öffne starkbier.gif">
     <img class="icon" src="assets/Floppy.png" alt="Floppy Disc Icon">
     <div class="label">starkbier.gif</div>
   </a>
@@ -232,66 +224,54 @@ span.blink-dot {
   </div>
 </div>
 
-<!-- Logo Footer -->
+<!-- Logo-Footer -->
 <div class="logo-footer">
-  <div class="logo hansgpunkt">
-    <a href="https://www.instagram.com/hanzgpunkt/" target="_blank">
-      <img src="assets/logo.gif" alt="Logo Hansgpunkt">
-    </a>
-  </div>
-  <div class="logo meyks">
-    <a href="https://www.instagram.com/prod.meyks/" target="_blank">
-      <img src="assets/meyksnew.png" alt="Logo Meyks">
-    </a>
-  </div>
-  <div class="logo SenorSonate">
-    <a href="https://www.instagram.com/enoronate/" target="_blank">
-      <img src="assets/Senorplatzhalter.png" alt="Logo SenorSonate">
-    </a>
-  </div>
+  <a href="https://www.instagram.com/hanzgpunkt/" target="_blank">
+    <img src="assets/logo.gif" alt="Logo Hansgpunkt">
+  </a>
+  <a href="https://www.instagram.com/prod.meyks/" target="_blank">
+    <img src="assets/meyksnew.png" alt="Logo Meyks">
+  </a>
+  <a href="https://www.instagram.com/enoronate/" target="_blank">
+    <img src="assets/Senorplatzhalter.png" alt="Logo SenorSonate">
+  </a>
 </div>
 
-<!-- Impressum Footer -->
+<!-- Impressum -->
 <div class="footer">
   <p>
     &copy; 2025 KAFFAKOILEKTIV |
     <a href="https://www.instagram.com/hanzgpunkt/" target="_blank">Hansgpunkt</a>,
     <a href="https://www.instagram.com/prod.meyks/" target="_blank">Meyks</a>,
     <a href="https://www.instagram.com/enoronate/" target="_blank">SenorSonate</a> |
-    Keine Datenweitergabe, keine Cookies.
+    Keine Datenweitergabe durch uns.
   </p>
 </div>
 
 <script>
-// Schreibmaschinen-Animation mit natürlichem Tippverhalten
+// Schreibmaschinen-Animation
 const typewriter = document.getElementById('typewriter');
-
-function randomDelay(min, max) {
-  return Math.floor(Math.random() * (max - min)) + min;
-}
-
+function randDelay(min,max){return Math.floor(Math.random()*(max-min))+min;}
 async function typeSequence() {
   const sequence = ['S','D','A','.','.','.', 'deleteDots3', ' ','[','A','T',']','•'];
-  
-  for (let item of sequence) {
-    if (item.startsWith('deleteDots')) {
-      let count = parseInt(item.replace('deleteDots', ''));
-      for (let i = 0; i < count; i++) {
-        await new Promise(r => setTimeout(r, randomDelay(100, 250)));
-        const dots = Array.from(typewriter.querySelectorAll('span:not(.blink-dot)'));
-        const dotIndex = dots.findIndex(s => s.textContent === '.');
-        if (dotIndex >= 0) dots[dotIndex].remove();
+  for(let item of sequence){
+    if(item.startsWith('deleteDots')){
+      let count = parseInt(item.replace('deleteDots',''));
+      for(let i=0;i<count;i++){
+        await new Promise(r=>setTimeout(r,randDelay(150,300)));
+        const dots=[...typewriter.querySelectorAll('span:not(.blink-dot)')];
+        const dot=dots.reverse().find(s=>s.textContent==='.');
+        if(dot)dot.remove();
       }
     } else {
-      await new Promise(r => setTimeout(r, randomDelay(100, 600)));
-      const span = document.createElement('span');
-      span.textContent = item;
-      if (item === '•') span.classList.add('blink-dot');
+      await new Promise(r=>setTimeout(r,randDelay(200,500)));
+      const span=document.createElement('span');
+      span.textContent=item;
+      if(item==='•')span.classList.add('blink-dot');
       typewriter.appendChild(span);
     }
   }
 }
-
 typeSequence();
 </script>
 
