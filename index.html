@@ -21,23 +21,26 @@ html, body {
   color:#2b1d0e;
 }
 
-/* ---------- Logos + Footer unten ---------- */
+/* ---------- Footer-Bereich fixiert unten ---------- */
 .footer-wrapper {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
   flex-wrap: wrap;
-  width: 100%;
   padding: 10px 20px;
   box-sizing: border-box;
-  position: relative;
-  bottom: 0;
+  background: rgba(192,192,192,0.8); /* leicht transparent für Stil */
+  z-index: 10;
 }
 
 .logo-row {
   display: flex;
   gap: 20px;
-  align-items: flex-end;
+  align-items: center;
 }
 
 .logo {
@@ -188,8 +191,8 @@ span.blink-dot {
 /* ---------- Responsive ---------- */
 @media (max-width:768px){
   .logo img { height: 50px; }
-  .footer { font-size: 8px; max-width: 160px; }
-  .footer-wrapper { flex-direction: column; align-items: center; text-align: center; gap: 10px; }
+  .footer-wrapper { flex-direction: column; align-items: center; text-align: center; gap: 8px; }
+  .footer { font-size: 8px; max-width: 200px; }
   .logo-row { justify-content: center; flex-wrap: wrap; }
 }
 </style>
