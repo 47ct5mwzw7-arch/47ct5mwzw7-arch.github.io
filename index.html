@@ -19,58 +19,33 @@ html, body {
     linear-gradient(to bottom, rgba(60,40,10,0.1) 1px, transparent 1px);
   background-size: 14px 14px;
   color:#2b1d0e;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
 }
 
-/* ---------- Footer-Bereich fixiert unten ---------- */
-.footer-wrapper {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  flex-wrap: wrap;
-  padding: 10px 20px;
-  box-sizing: border-box;
-  background: rgba(192,192,192,0.8); /* leicht transparent für Stil */
-  z-index: 10;
+/* ---------- Bereich über Footer ---------- */
+.logo-container {
+  display:flex;
+  justify-content:center;
+  align-items:flex-end;
+  gap:30px;
+  flex-wrap:wrap;
+  margin-bottom:5px; /* Abstand 5px über dem Footer */
 }
 
-.logo-row {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-}
-
-.logo {
-  display: inline-block;
-  transition: transform 0.25s ease, filter 0.25s ease;
-}
+/* ---------- Einzelne Logos ---------- */
 .logo img {
-  height: 80px;
-  width: auto;
+  height:auto;
+  transition:transform 0.25s ease, filter 0.25s ease;
 }
 .logo img:hover {
-  transform: scale(1.05);
-  filter: brightness(1.2);
+  transform:scale(1.05);
+  filter:brightness(1.2);
 }
-
-/* ---------- Footer / Impressum ---------- */
-.footer {
-  font-family: 'Special Elite','IBM Plex Mono', monospace;
-  font-size: 10px;
-  color: #888888;
-  text-align: right;
-  max-width: 250px;
-}
-.footer a {
-  color: #888888;
-  text-decoration: underline;
-}
-.footer a:hover {
-  color: #aaa;
-}
+.logo.hansgpunkt img { width: 250px; }
+.logo.meyks img { width: 90px; }
+.logo.SenorSonate img { width: 150px; }
 
 /* ---------- Desktop Icon mittig ---------- */
 .desktop-icon {
@@ -188,12 +163,35 @@ span.blink-dot {
   25%,75%{opacity:0;} 
 }
 
-/* ---------- Responsive ---------- */
+/* ---------- Footer ---------- */
+.footer {
+  width: 100%;
+  height: 3vh; /* Footer nimmt 3% der Seite */
+  padding: 4px 15px;
+  box-sizing: border-box;
+  font-family: 'Special Elite','IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: #888888;
+  text-align: right;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.footer a {
+  color: #888888;
+  text-decoration: underline;
+}
+.footer a:hover {
+  color: #aaa;
+}
+
+/* ---------- Responsive Anpassungen ---------- */
 @media (max-width:768px){
-  .logo img { height: 50px; }
-  .footer-wrapper { flex-direction: column; align-items: center; text-align: center; gap: 8px; }
-  .footer { font-size: 8px; max-width: 200px; }
-  .logo-row { justify-content: center; flex-wrap: wrap; }
+  .logo.hansgpunkt img { width: 180px; }
+  .logo.meyks img { width: 70px; }
+  .logo.SenorSonate img { width: 120px; }
+  .footer { font-size: 8px; text-align: center; justify-content: center; }
 }
 </style>
 </head>
@@ -202,7 +200,7 @@ span.blink-dot {
 <!-- SDA Typing -->
 <h1 class="typewriter" id="typewriter"></h1>
 
-<!-- Desktop-Icon -->
+<!-- Desktop-Icon mittig -->
 <div class="desktop-icon">
   <a href="#popup">
     <img class="icon" src="assets/Floppy.png" alt="Floppy Disc Icon">
@@ -223,35 +221,34 @@ span.blink-dot {
   </div>
 </div>
 
-<!-- Footer-Bereich -->
-<div class="footer-wrapper">
-  <div class="logo-row">
-    <div class="logo">
-      <a href="https://www.instagram.com/hanzgpunkt/" target="_blank">
-        <img src="assets/logo.gif" alt="Logo Hansgpunkt">
-      </a>
-    </div>
-    <div class="logo">
-      <a href="https://www.instagram.com/prod.meyks/" target="_blank">
-        <img src="assets/meyksnew.png" alt="Logo Meyks">
-      </a>
-    </div>
-    <div class="logo">
-      <a href="https://www.instagram.com/enoronate/" target="_blank">
-        <img src="assets/Senorplatzhalter.png" alt="Logo SenorSonate">
-      </a>
-    </div>
+<!-- Logos direkt über Footer -->
+<div class="logo-container">
+  <div class="logo hansgpunkt">
+    <a href="https://www.instagram.com/hanzgpunkt/" target="_blank">
+      <img src="assets/logo.gif" alt="Logo Hansgpunkt">
+    </a>
   </div>
+  <div class="logo meyks">
+    <a href="https://www.instagram.com/prod.meyks/" target="_blank">
+      <img src="assets/meyksnew.png" alt="Logo Meyks">
+    </a>
+  </div>
+  <div class="logo SenorSonate">
+    <a href="https://www.instagram.com/enoronate/" target="_blank">
+      <img src="assets/Senorplatzhalter.png" alt="Logo SenorSonate">
+    </a>
+  </div>
+</div>
 
-  <div class="footer">
-    <p>
-      &copy; 2025 KAFFAKOILEKTIV | 
-      <a href="https://www.instagram.com/hanzgpunkt/" target="_blank">Hansgpunkt</a>, 
-      <a href="https://www.instagram.com/prod.meyks/" target="_blank">Meyks</a>, 
-      <a href="https://www.instagram.com/enoronate/" target="_blank">SenorSonate</a> | 
-      Alle Links führen zu externen Plattformen. Keine Datenweitergabe durch uns.
-    </p>
-  </div>
+<!-- Footer -->
+<div class="footer">
+  <p>
+    &copy; 2025 KAFFAKOILEKTIV | 
+    <a href="https://www.instagram.com/hanzgpunkt/" target="_blank">Hansgpunkt</a>, 
+    <a href="https://www.instagram.com/prod.meyks/" target="_blank">Meyks</a>, 
+    <a href="https://www.instagram.com/enoronate/" target="_blank">SenorSonate</a> | 
+    Alle Links führen zu externen Plattformen. Keine Datenweitergabe durch uns.
+  </p>
 </div>
 
 <script>
