@@ -21,7 +21,7 @@ html, body {
   color:#2b1d0e;
 }
 
-/* ---------- Desktop Icon mittig ---------- */
+/* ---------- Desktop Icon ---------- */
 .desktop-icon {
   position:absolute;
   top:50%;
@@ -51,7 +51,7 @@ html, body {
   text-shadow:1px 1px 0 rgba(255,255,255,0.8); 
 }
 
-/* ---------- Popup / Win95-Fenster ---------- */
+/* ---------- Popup / Fenster ---------- */
 #popup { 
   position:absolute; 
   inset:0; 
@@ -72,7 +72,6 @@ html, body {
   border:2px solid #fff;
   box-shadow:inset -2px -2px 0 #808080,inset 2px 2px 0 #dfdfdf,
               0 0 0 1px black,8px 8px 16px rgba(0,0,0,0.25);
-  width:auto; 
   max-width:80vw; 
   transform:scale(0.9); 
   opacity:0; 
@@ -93,22 +92,17 @@ html, body {
   align-items:center; 
   justify-content:space-between; 
 }
-.titlebar span { font-weight:bold; }
 .close-btn {
   background:#c0c0c0; 
   border:2px solid #fff;
   box-shadow:inset -1px -1px 0 #808080,inset 1px 1px 0 #dfdfdf;
   color:black; 
-  font-family:sans-serif; 
   font-size:14px; 
-  line-height:14px;
   width:18px; 
   height:18px; 
   text-align:center; 
   text-decoration:none;
 }
-.close-btn:hover { background:#dfdfdf; }
-.content { padding:6px; background:#c0c0c0; }
 .content img { 
   display:block; 
   max-width:70vw; 
@@ -117,7 +111,7 @@ html, body {
   border:1px solid #000; 
 }
 
-/* ---------- SDA Typing oben links ---------- */
+/* ---------- Typewriter ---------- */
 .typewriter {
   position:fixed; 
   top:10px; 
@@ -140,21 +134,21 @@ span.blink-dot {
 /* ---------- Logo-Footer ---------- */
 .logo-footer {
   position:fixed;
-  bottom:3%;
+  bottom:6%;
   left:0;
   width:100%;
-  height:8vh;
   display:flex;
   justify-content:center;
   align-items:center;
-  gap:3vw;
+  gap:4vw;
   background:transparent;
   z-index:15;
 }
 .logo-footer img {
-  max-height:90%;
+  height:min(8vh, 10vw);
   width:auto;
-  height:auto;
+  max-width:25vw;
+  object-fit:contain;
   transition:transform 0.25s ease, filter 0.25s ease;
 }
 .logo-footer img:hover {
@@ -162,7 +156,7 @@ span.blink-dot {
   filter:brightness(1.2);
 }
 
-/* ---------- Impressum-Footer ---------- */
+/* ---------- Impressum ---------- */
 .footer {
   position:fixed;
   bottom:0;
@@ -175,8 +169,8 @@ span.blink-dot {
   font-family:'Special Elite','IBM Plex Mono',monospace;
   font-size:10px;
   color:#888;
-  text-align:center;
   background:transparent;
+  text-align:center;
   z-index:20;
 }
 .footer a {
@@ -185,33 +179,29 @@ span.blink-dot {
 }
 .footer a:hover { color:#aaa; }
 
-/* ---------- Responsive Anpassungen ---------- */
+/* ---------- Responsive ---------- */
 @media (max-width:768px){
+  .typewriter{font-size:1.5rem;top:5px;left:10px;}
   .desktop-icon .icon{width:40px;height:40px;}
-  .desktop-icon .label{font-size:12px;}
-  .win95-window{max-width:90vw;}
-  .content img{max-width:85vw; max-height:60vh;}
-  .typewriter{font-size:1.6rem;top:5px;left:10px;}
-  .logo-footer{height:8vh;gap:4vw;}
-  .logo-footer img{max-height:80%;}
+  .logo-footer img{
+    height:min(6vh, 18vw);
+    max-width:28vw;
+  }
   .footer{font-size:8px;}
 }
 </style>
 </head>
 <body>
 
-<!-- SDA Typing -->
 <h1 class="typewriter" id="typewriter"></h1>
 
-<!-- Desktop-Icon -->
 <div class="desktop-icon">
-  <a href="#popup" title="öffne starkbier.gif">
-    <img class="icon" src="assets/Floppy.png" alt="Floppy Disc Icon">
+  <a href="#popup">
+    <img class="icon" src="assets/Floppy.png" alt="Floppy">
     <div class="label">starkbier.gif</div>
   </a>
 </div>
 
-<!-- Popup -->
 <div id="popup">
   <div class="win95-window">
     <div class="titlebar">
@@ -224,16 +214,16 @@ span.blink-dot {
   </div>
 </div>
 
-<!-- Logo-Footer -->
+<!-- Logos -->
 <div class="logo-footer">
   <a href="https://www.instagram.com/hanzgpunkt/" target="_blank">
-    <img src="assets/logo.gif" alt="Logo Hansgpunkt">
+    <img src="assets/logo.gif" alt="Hansgpunkt">
   </a>
   <a href="https://www.instagram.com/prod.meyks/" target="_blank">
-    <img src="assets/meyksnew.png" alt="Logo Meyks">
+    <img src="assets/meyksnew.png" alt="Meyks">
   </a>
   <a href="https://www.instagram.com/enoronate/" target="_blank">
-    <img src="assets/Senorplatzhalter.png" alt="Logo SenorSonate">
+    <img src="assets/Senorplatzhalter.png" alt="SenorSonate">
   </a>
 </div>
 
@@ -249,15 +239,14 @@ span.blink-dot {
 </div>
 
 <script>
-// Schreibmaschinen-Animation
-const typewriter = document.getElementById('typewriter');
+const typewriter=document.getElementById('typewriter');
 function randDelay(min,max){return Math.floor(Math.random()*(max-min))+min;}
-async function typeSequence() {
-  const sequence = ['S','D','A','.','.','.', 'deleteDots3', ' ','[','A','T',']','•'];
-  for(let item of sequence){
-    if(item.startsWith('deleteDots')){
-      let count = parseInt(item.replace('deleteDots',''));
-      for(let i=0;i<count;i++){
+async function typeSequence(){
+  const seq=['S','D','A','.','.','.', 'deleteDots3', ' ','[','A','T',']','•'];
+  for(let i of seq){
+    if(i.startsWith('deleteDots')){
+      let n=parseInt(i.replace('deleteDots',''));
+      for(let j=0;j<n;j++){
         await new Promise(r=>setTimeout(r,randDelay(150,300)));
         const dots=[...typewriter.querySelectorAll('span:not(.blink-dot)')];
         const dot=dots.reverse().find(s=>s.textContent==='.');
@@ -265,10 +254,10 @@ async function typeSequence() {
       }
     } else {
       await new Promise(r=>setTimeout(r,randDelay(200,500)));
-      const span=document.createElement('span');
-      span.textContent=item;
-      if(item==='•')span.classList.add('blink-dot');
-      typewriter.appendChild(span);
+      const s=document.createElement('span');
+      s.textContent=i;
+      if(i==='•')s.classList.add('blink-dot');
+      typewriter.appendChild(s);
     }
   }
 }
