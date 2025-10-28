@@ -8,7 +8,6 @@
 
 <style>
 :root {
-  /* ====== Manuelle Justierung der Logos ====== */
   --senorsonate-size: 8;
   --senorsonate-left: 40;
   --senorsonate-bottom: 8;
@@ -49,7 +48,6 @@ html, body {
   filter: brightness(1.15);
 }
 
-/* Positionen und Größen relativ zum Viewport */
 .logo.SenorSonate {
   left: calc(var(--senorsonate-left) * 1%);
   bottom: calc(var(--senorsonate-bottom) * 1vh);
@@ -246,6 +244,7 @@ span.blink-dot {
     padding: 10px 8px;
     height: auto;
     line-height: 1.6;
+    bottom: 1.5vh; /* 👈 Footer etwas weiter nach unten (1.5% vom Viewport) */
   }
 
   .footer p {
