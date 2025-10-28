@@ -9,9 +9,9 @@
 <style>
 :root {
   /* ====== Manuelle Justierung der Logos ====== */
-  --senorsonate-size: 8;   /* Breite in vw */
-  --senorsonate-left: 40;  /* Position von links in % */
-  --senorsonate-bottom: 8; /* Abstand vom unteren Rand in vh */
+  --senorsonate-size: 8;
+  --senorsonate-left: 40;
+  --senorsonate-bottom: 8;
 
   --meyks-size: 5;
   --meyks-left: 50;
@@ -82,14 +82,14 @@ html, body {
   position: fixed;
   bottom: 0;
   width: 100%;
-  height: 3%;
   background: rgba(192, 192, 192, 0.15);
   text-align: right;
-  padding: 5px 15px;
+  padding: 6px 18px;
   font-size: 10px;
   color: #888;
   z-index: 20;
   font-family: 'Special Elite','IBM Plex Mono', monospace;
+  line-height: 1.4;
 }
 .footer a {
   color: #888;
@@ -161,8 +161,6 @@ span.blink-dot {
   opacity: 1;
   pointer-events: all;
 }
-
-/* Klassischer Win95 Rahmen */
 .win95-window {
   background: #c0c0c0;
   border: 2px solid #fff;
@@ -188,7 +186,6 @@ span.blink-dot {
   font-size: 14px;
 }
 .win95-window .titlebar a {
-  color: white;
   text-decoration: none;
   font-weight: bold;
   padding: 0 6px;
@@ -228,10 +225,7 @@ span.blink-dot {
     left: 10px;
     top: 5px;
   }
-  .footer {
-    font-size: 8px;
-    padding-right: 8px;
-  }
+
   :root {
     --senorsonate-size: 20;
     --senorsonate-left: 15;
@@ -244,6 +238,19 @@ span.blink-dot {
     --hansgpunkt-size: 29;
     --hansgpunkt-left: 64;
     --hansgpunkt-bottom: 3;
+  }
+
+  .footer {
+    font-size: 9px;
+    text-align: center;
+    padding: 10px 8px;
+    height: auto;
+    line-height: 1.6;
+  }
+
+  .footer p {
+    margin: 4px 0;
+    word-wrap: break-word;
   }
 
   .win95-window {
