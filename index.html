@@ -8,6 +8,7 @@
 
 <style>
 :root {
+  /* ====== Manuelle Justierung der Logos ====== */
   --senorsonate-size: 8;
   --senorsonate-left: 40;
   --senorsonate-bottom: 8;
@@ -19,6 +20,11 @@
   --hansgpunkt-size: 12;
   --hansgpunkt-left: 54;
   --hansgpunkt-bottom: 4;
+
+  /* ====== Footer Justierung ====== */
+  --footer-fontsize-desktop: 10px;
+  --footer-fontsize-mobile: 9px;
+  --footer-bottom-mobile: 3vh; /* <- Abstand vom unteren Rand auf Handy */
 }
 
 /* ====== Grundlayout ====== */
@@ -81,9 +87,9 @@ html, body {
   bottom: 0;
   width: 100%;
   background: rgba(192, 192, 192, 0.15);
-  text-align: right;
-  padding: 6px 18px;
-  font-size: 10px;
+  text-align: center; /* <-- jetzt mittig statt rechts */
+  padding: 6px 15px;
+  font-size: var(--footer-fontsize-desktop);
   color: #888;
   z-index: 20;
   font-family: 'Special Elite','IBM Plex Mono', monospace;
@@ -238,15 +244,14 @@ span.blink-dot {
     --hansgpunkt-bottom: 3;
   }
 
+  /* ===== Footer mobil manuell justierbar ===== */
   .footer {
-    font-size: 9px;
+    font-size: var(--footer-fontsize-mobile);
+    bottom: var(--footer-bottom-mobile);
     text-align: center;
-    padding: 10px 8px;
-    height: auto;
-    line-height: 1.6;
-    bottom: 1.5vh; /* 👈 Footer etwas weiter nach unten (1.5% vom Viewport) */
+    padding: 8px 10px;
+    line-height: 1.5;
   }
-
   .footer p {
     margin: 4px 0;
     word-wrap: break-word;
