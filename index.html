@@ -8,124 +8,148 @@
 
 <style>
 :root {
-  --senorsonate-size: 8; --senorsonate-left: 40; --senorsonate-bottom: 8;
-  --meyks-size: 5; --meyks-left: 50; --meyks-bottom: 5;
-  --hansgpunkt-size: 12; --hansgpunkt-left: 54; --hansgpunkt-bottom: 4;
+  /* ====== Logos Desktop ====== */
+  --senorsonate-size: 8;
+  --senorsonate-left: 40;
+  --senorsonate-bottom: 8;
 
+  --meyks-size: 5;
+  --meyks-left: 50;
+  --meyks-bottom: 5;
+
+  --hansgpunkt-size: 12;
+  --hansgpunkt-left: 54;
+  --hansgpunkt-bottom: 4;
+
+  /* ====== Desktop Icons Desktop ====== */
+  --icon1-size: 8;
+  --icon1-left: 50;
+  --icon1-top: 50;
+
+  --icon2-size: 8;
+  --icon2-left: 55;
+  --icon2-top: 65;
+
+  /* ====== Footer ====== */
   --footer-fontsize-desktop: 10px;
   --footer-fontsize-mobile: 8px;
   --footer-bottom-mobile: 0.25vh;
 }
 
+/* ====== Grundlayout ====== */
 html, body {
   height: 100%;
-  margin: 0; padding: 0;
+  margin: 0;
+  padding: 0;
   background-color: #c0c0c0;
   font-family: 'Special Elite','IBM Plex Mono', monospace;
   overflow-x: hidden;
   position: relative;
-  background-image: linear-gradient(to right, rgba(60,40,10,0.1) 1px, transparent 1px),
-                    linear-gradient(to bottom, rgba(60,40,10,0.1) 1px, transparent 1px);
+  background-image:
+    linear-gradient(to right, rgba(60,40,10,0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(60,40,10,0.1) 1px, transparent 1px);
   background-size: 14px 14px;
   color: #2b1d0e;
 }
 
-/* Logos */
-.logo { position: fixed; z-index: 5; transition: transform 0.25s ease, filter 0.25s ease;}
+/* ====== Logos ====== */
+.logo { position: fixed; z-index: 5; transition: transform 0.25s ease, filter 0.25s ease; }
 .logo img:hover { transform: scale(1.08); filter: brightness(1.15); }
 .logo.SenorSonate { left: calc(var(--senorsonate-left) * 1%); bottom: calc(var(--senorsonate-bottom) * 1vh);}
-.logo.SenorSonate img { width: calc(var(--senorsonate-size) * 1vw); height:auto;}
+.logo.SenorSonate img { width: calc(var(--senorsonate-size) * 1vw);}
 .logo.meyks { left: calc(var(--meyks-left) * 1%); bottom: calc(var(--meyks-bottom) * 1vh);}
-.logo.meyks img { width: calc(var(--meyks-size) * 1vw); height:auto;}
+.logo.meyks img { width: calc(var(--meyks-size) * 1vw);}
 .logo.hansgpunkt { left: calc(var(--hansgpunkt-left) * 1%); bottom: calc(var(--hansgpunkt-bottom) * 1vh);}
-.logo.hansgpunkt img { width: calc(var(--hansgpunkt-size) * 1vw); height:auto;}
+.logo.hansgpunkt img { width: calc(var(--hansgpunkt-size) * 1vw);}
 
-/* Footer */
+/* ====== Desktop Icons ====== */
+.desktop-icon { position: absolute; display: flex; flex-direction: column; align-items: center; }
+.desktop-icon .icon { cursor: pointer; border: 2px solid #fff; background: #c0c0c0; box-shadow: -2px -2px 0 #808080, 2px 2px 0 #dfdfdf; }
+.desktop-icon .icon:hover { transform: scale(1.1); box-shadow: 0 0 6px rgba(255,255,255,0.6); }
+.desktop-icon .label { margin-top: 8px; font-size: 14px; text-shadow: 1px 1px 0 rgba(255,255,255,0.8); }
+
+/* Desktop Icons positionieren nach Variablen */
+.desktop-icon:nth-child(4) { left: calc(var(--icon1-left)*1%); top: calc(var(--icon1-top)*1vh);}
+.desktop-icon:nth-child(4) .icon { width: calc(var(--icon1-size)*1vw); height: auto; }
+.desktop-icon:nth-child(5) { left: calc(var(--icon2-left)*1%); top: calc(var(--icon2-top)*1vh);}
+.desktop-icon:nth-child(5) .icon { width: calc(var(--icon2-size)*1vw); height: auto; }
+
+/* ====== Footer ====== */
 .footer {
-  position: fixed; bottom:0; width:100%;
-  background: rgba(192,192,192,0.15); text-align:center; padding:6px 15px;
-  font-size: var(--footer-fontsize-desktop); color:#888; z-index:20; line-height:1.4;
+  position: fixed; bottom: 0; width: 100%;
+  background: rgba(192,192,192,0.15);
+  text-align: center; padding: 6px 15px;
+  font-size: var(--footer-fontsize-desktop);
+  color: #888; z-index: 20; line-height: 1.4;
 }
-.footer a { color:#888; text-decoration:underline;}
-.footer a:hover { color:#aaa;}
+.footer a { color: #888; text-decoration: underline; }
+.footer a:hover { color: #aaa; }
 
-/* Typing */
-.typewriter { position: fixed; top:10px; left:30px; font-size:2rem; white-space:nowrap; z-index:10; }
-span.blink-dot { animation: blinkForever 1s step-start infinite; margin-left:2px; }
+/* ====== Typing ====== */
+.typewriter { position: fixed; top: 10px; left: 30px; font-size: 2rem; white-space: nowrap; z-index: 10; }
+span.blink-dot { animation: blinkForever 1s step-start infinite; margin-left: 2px; }
 @keyframes blinkForever { 0%,50%,100%{opacity:1;} 25%,75%{opacity:0;} }
 
-/* Desktop Icon */
-.desktop-icon { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); display:flex; flex-direction:column; align-items:center;}
-.icon { width:48px;height:48px; cursor:pointer; border:2px solid #fff; background:#c0c0c0; box-shadow:-2px -2px 0 #808080,2px 2px 0 #dfdfdf;}
-.icon:hover { transform: scale(1.1); box-shadow:0 0 6px rgba(255,255,255,0.6);}
-.label { margin-top:8px; font-size:14px; text-shadow:1px 1px 0 rgba(255,255,255,0.8); }
-
-/* Popup Fenster */
+/* ====== Popup ====== */
 #popup, #popup-counter {
-  position: fixed; inset:0; display:flex; align-items:center; justify-content:center;
-  opacity:0; pointer-events:none; transition:opacity 0.35s ease; z-index:100;
+  position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none; transition: opacity 0.35s ease; z-index: 100;
 }
-#popup:target, #popup-counter:target { opacity:1; pointer-events:all; }
-
+#popup:target, #popup-counter:target { opacity:1; pointer-events: all; }
 .win95-window {
-  background:#c0c0c0; border:2px solid #fff;
+  background: #c0c0c0; border:2px solid #fff;
   box-shadow: inset -2px -2px 0 #808080, inset 2px 2px 0 #dfdfdf, 0 0 0 1px black;
-  width:55vw; max-width:600px; display:flex; flex-direction:column;
-  animation: popIn 0.25s ease forwards;
+  width:55vw; max-width:600px; display:flex; flex-direction:column; animation: popIn 0.25s ease forwards;
 }
-.win95-window .titlebar {
-  background: linear-gradient(to bottom,#000080,#000060);
-  color:white; font-weight:bold; padding:4px 8px;
-  display:flex; justify-content:space-between; align-items:center;
-  font-family:'IBM Plex Mono', monospace; font-size:14px;
-}
-.win95-window .titlebar a {
-  text-decoration:none; font-weight:bold; padding:0 6px; border:1px solid #fff;
-  background:#c0c0c0; color:black; box-shadow: inset -1px -1px 0 #808080, inset 1px 1px 0 #dfdfdf;
-}
+.win95-window .titlebar { background: linear-gradient(to bottom,#000080,#000060); color:white; font-weight:bold; padding:4px 8px; display:flex; justify-content:space-between; align-items:center; font-family:'IBM Plex Mono', monospace; font-size:14px; }
+.win95-window .titlebar a { text-decoration:none; font-weight:bold; padding:0 6px; border:1px solid #fff; background:#c0c0c0; color:black; box-shadow: inset -1px -1px 0 #808080, inset 1px 1px 0 #dfdfdf; }
 .win95-window .titlebar a:hover { background:#999; }
-.win95-window .content { padding:6px; background:#c0c0c0; display:flex; justify-content:center; align-items:center;}
+.win95-window .content { padding:6px; background:#c0c0c0; display:flex; justify-content:center; align-items:center; }
 .win95-window .content img { max-width:95%; max-height:75vh; height:auto; width:auto; object-fit:contain; }
 
-@keyframes popIn {0%{transform:scale(0.9);opacity:0;}60%{transform:scale(1.05);opacity:1;}100%{transform:scale(1);opacity:1;}}
-
-/* Counter */
 .counter-content { padding:20px; background:#c0c0c0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
 .counter-bar { width:80%; height:25px; border:2px inset #808080; background:#dfdfdf; position:relative; overflow:hidden; margin-top:10px; }
-.counter-fill { position:absolute; top:0; left:0; height:100%; width:0%; background: repeating-linear-gradient(-45deg,#00cc00,#00cc00 4px,#008800 4px,#008800 8px); }
+.counter-fill { position:absolute; top:0; left:0; height:100%; width:0%; background: repeating-linear-gradient(-45deg,#00cc00,#00cc00 4px,#008800 4px,#008800 8px); transition: width 2s linear; }
 .counter-value { font-size:1.5rem; margin-top:12px; font-family:'IBM Plex Mono', monospace; color:#000; }
 
-/* Mobile */
-@media (max-width:768px){
+@keyframes popIn { 0%{transform:scale(0.9);opacity:0;} 60%{transform:scale(1.05);opacity:1;} 100%{transform:scale(1);opacity:1;} }
+
+/* ====== Mobile ====== */
+@media(max-width:768px){
   .typewriter{font-size:1.6rem; left:10px; top:5px;}
-  :root{--senorsonate-size:20; --senorsonate-left:15; --senorsonate-bottom:6; --meyks-size:12; --meyks-left:48; --meyks-bottom:4; --hansgpunkt-size:29; --hansgpunkt-left:64; --hansgpunkt-bottom:3;}
-  .footer{font-size:var(--footer-fontsize-mobile); bottom:var(--footer-bottom-mobile); text-align:center; padding:8px 10px; line-height:1.5;}
-  .footer p{margin:4px 0; word-wrap:break-word;}
-  .win95-window{width:90vw; max-width:none;}
-  .win95-window .content img{max-width:90%; max-height:60vh;}
+  :root{
+    --senorsonate-size:20; --senorsonate-left:15; --senorsonate-bottom:6;
+    --meyks-size:12; --meyks-left:48; --meyks-bottom:4;
+    --hansgpunkt-size:29; --hansgpunkt-left:64; --hansgpunkt-bottom:3;
+
+    --icon1-size:20; --icon1-left:15; --icon1-top:45;
+    --icon2-size:20; --icon2-left:55; --icon2-top:60;
+  }
+  .footer{ font-size:var(--footer-fontsize-mobile); bottom:var(--footer-bottom-mobile); text-align:center; padding:8px 10px; line-height:1.5; }
+  .win95-window{ width:90vw; max-width:none; }
+  .win95-window .content img{ max-width:90%; max-height:60vh; }
 }
 </style>
 </head>
-
 <body>
 
 <!-- Logos -->
-<div class="logo SenorSonate"><a href="https://www.instagram.com/enoronate/" target="_blank"><img src="assets/Senorplatzhalter.png" alt="SenorSonate Logo"></a></div>
-<div class="logo meyks"><a href="https://www.instagram.com/prod.meyks/" target="_blank"><img src="assets/meyksnew.png" alt="Meyks Logo"></a></div>
-<div class="logo hansgpunkt"><a href="https://www.instagram.com/hanzgpunkt/" target="_blank"><img src="assets/logo.gif" alt="Hansgpunkt Logo"></a></div>
+<div class="logo SenorSonate"><a href="https://www.instagram.com/enoronate/" target="_blank"><img src="assets/Senorplatzhalter.png" alt="SenorSonate"></a></div>
+<div class="logo meyks"><a href="https://www.instagram.com/prod.meyks/" target="_blank"><img src="assets/meyksnew.png" alt="Meyks"></a></div>
+<div class="logo hansgpunkt"><a href="https://www.instagram.com/hanzgpunkt/" target="_blank"><img src="assets/logo.gif" alt="Hansgpunkt"></a></div>
 
-<!-- SDA Typing -->
+<!-- SDA Typewriter -->
 <h1 class="typewriter" id="typewriter"></h1>
 
 <!-- Desktop Icons -->
 <div class="desktop-icon">
-  <a href="#popup" title="öffne starkbier.gif"><img class="icon" src="assets/Floppy.png" alt="Floppy Disc"><div class="label">starkbier.gif</div></a>
+  <a href="#popup" title="starkbier.gif"><img class="icon" src="assets/Floppy.png" alt="Floppy"><div class="label">starkbier.gif</div></a>
 </div>
-<div class="desktop-icon" style="top:65%; left:55%;">
-  <a href="#popup-counter" title="Zigaretten Counter"><img class="icon" src="assets/fire_alpha.png" alt="Folder"><div class="label">Kippenpausen.exe</div></a>
+<div class="desktop-icon">
+  <a href="#popup-counter" title="Zigaretten Counter"><img class="icon" src="assets/fire_alpha.png" alt="Counter"><div class="label">Zigaretten.exe</div></a>
 </div>
 
-<!-- Starkbier GIF Popup -->
+<!-- GIF Popup -->
 <div id="popup">
   <div class="win95-window">
     <div class="titlebar"><span>starkbier.gif</span><a href="#">×</a></div>
@@ -133,10 +157,10 @@ span.blink-dot { animation: blinkForever 1s step-start infinite; margin-left:2px
   </div>
 </div>
 
-<!-- Zigaretten Counter Popup -->
+<!-- Counter Popup -->
 <div id="popup-counter">
   <div class="win95-window">
-    <div class="titlebar"><span>Kippenpausen.exe</span><a href="#">×</a></div>
+    <div class="titlebar"><span>Zigaretten.exe</span><a href="#">×</a></div>
     <div class="counter-content">
       <div class="counter-bar"><div class="counter-fill" id="fill"></div></div>
       <div class="counter-value" id="count">0</div>
@@ -146,19 +170,17 @@ span.blink-dot { animation: blinkForever 1s step-start infinite; margin-left:2px
 
 <!-- Footer -->
 <div class="footer">
-  <p>
-    &copy; 2025 KAFFAKOILEKTIV |
-    <a href="https://www.instagram.com/hanzgpunkt/" target="_blank">Hansgpunkt</a>,
-    <a href="https://www.instagram.com/prod.meyks/" target="_blank">Meyks</a>,
-    <a href="https://www.instagram.com/enoronate/" target="_blank">SenorSonate</a> |
-    Keine Datenerhebung oder Weitergabe.
-  </p>
+<p>&copy; 2025 KAFFAKOILEKTIV |
+<a href="https://www.instagram.com/hanzgpunkt/" target="_blank">Hansgpunkt</a>,
+<a href="https://www.instagram.com/prod.meyks/" target="_blank">Meyks</a>,
+<a href="https://www.instagram.com/enoronate/" target="_blank">SenorSonate</a> |
+Keine Datenerhebung oder Weitergabe.</p>
 </div>
 
 <script>
 // SDA Typewriter
 const typewriter = document.getElementById('typewriter');
-function randDelay(min,max){ return Math.floor(Math.random()*(max-min))+min; }
+function randDelay(min,max){return Math.floor(Math.random()*(max-min))+min;}
 async function typeSequence(){
   const seq=['S','D','A','.','.','.','deleteDots3',' ','[','A','T',']','•'];
   for(let item of seq){
@@ -168,44 +190,43 @@ async function typeSequence(){
         await new Promise(r=>setTimeout(r,randDelay(150,300)));
         const dots=Array.from(typewriter.querySelectorAll('span:not(.blink-dot)'));
         const dIndex=dots.findIndex(s=>s.textContent==='.');
-        if(dIndex>=0) dots[dIndex].remove();
+        if(dIndex>=0)dots[dIndex].remove();
       }
     } else {
       await new Promise(r=>setTimeout(r,randDelay(200,500)));
       const span=document.createElement('span');
       span.textContent=item;
-      if(item==='•') span.classList.add('blink-dot');
+      if(item==='•')span.classList.add('blink-dot');
       typewriter.appendChild(span);
     }
   }
 }
 typeSequence();
 
-// Zigaretten Counter synchronisiert mit Balken
+// Counter Animation synchronisiert mit Balken
 function updateCounter(){
   const startDate=new Date("2025-10-27");
   const today=new Date();
   const days=Math.floor((today-startDate)/(1000*60*60*24));
   const total=286+days*15;
   const fill=document.getElementById('fill');
-  const countEl=document.getElementById('count');
-  const duration=2000; // Dauer der Balkenanimation in ms
-  const startTime=performance.now();
+  const count=document.getElementById('count');
+  fill.style.width='0%';
+  count.textContent='0 Zigaretten';
 
-  function animate(now){
-    const elapsed=now-startTime;
-    const progress=Math.min(elapsed/duration,1);
-    fill.style.width=(progress*100)+'%';
-    countEl.textContent=Math.floor(progress*total)+' Zigaretten';
-    if(progress<1) requestAnimationFrame(animate);
-  }
-  requestAnimationFrame(animate);
+  const duration = 2000; // 2 Sekunden, wie die CSS Transition
+  const steps = total;
+  let current = 0;
+  const intervalTime = duration / steps;
+  const anim = setInterval(()=>{
+    current++;
+    fill.style.width = (current/total*100)+'%';
+    count.textContent = current+' Zigaretten';
+    if(current>=total) clearInterval(anim);
+  }, intervalTime);
 }
 
-// Start Counter beim Öffnen des Popup
-window.addEventListener('hashchange', ()=>{
-  if(location.hash==='#popup-counter') updateCounter();
-});
+window.addEventListener('hashchange',()=>{if(location.hash==='#popup-counter') updateCounter();});
 </script>
 
 </body>
