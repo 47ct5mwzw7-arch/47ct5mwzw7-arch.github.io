@@ -8,21 +8,29 @@
 
 <style>
 :root {
+  /* Logos */
   --senorsonate-size: 8;
   --senorsonate-left: 40;
   --senorsonate-bottom: 8;
-
   --meyks-size: 5;
   --meyks-left: 50;
   --meyks-bottom: 5;
-
   --hansgpunkt-size: 12;
   --hansgpunkt-left: 54;
   --hansgpunkt-bottom: 4;
 
+  /* Footer */
   --footer-fontsize-desktop: 10px;
   --footer-fontsize-mobile: 8px;
   --footer-bottom-mobile: 0.25vh;
+
+  /* Mobile Desktop Icons */
+  --desktopicon1-top-mobile: 40%;
+  --desktopicon1-left-mobile: 20%;
+  --desktopicon1-size-mobile: 64px;
+  --desktopicon2-top-mobile: 60%;
+  --desktopicon2-left-mobile: 50%;
+  --desktopicon2-size-mobile: 64px;
 }
 
 /* ====== Grundlayout ====== */
@@ -42,21 +50,14 @@ html, body {
 }
 
 /* ====== Logos ====== */
-.logo {
-  position: fixed;
-  z-index: 5;
-  transition: transform 0.25s ease, filter 0.25s ease;
-}
-.logo img:hover {
-  transform: scale(1.08);
-  filter: brightness(1.15);
-}
+.logo { position: fixed; z-index: 5; transition: transform 0.25s ease, filter 0.25s ease; }
+.logo img:hover { transform: scale(1.08); filter: brightness(1.15); }
 .logo.SenorSonate { left: calc(var(--senorsonate-left)*1%); bottom: calc(var(--senorsonate-bottom)*1vh);}
-.logo.SenorSonate img { width: calc(var(--senorsonate-size)*1vw); }
+.logo.SenorSonate img { width: calc(var(--senorsonate-size)*1vw); height:auto; }
 .logo.meyks { left: calc(var(--meyks-left)*1%); bottom: calc(var(--meyks-bottom)*1vh);}
-.logo.meyks img { width: calc(var(--meyks-size)*1vw); }
+.logo.meyks img { width: calc(var(--meyks-size)*1vw); height:auto; }
 .logo.hansgpunkt { left: calc(var(--hansgpunkt-left)*1%); bottom: calc(var(--hansgpunkt-bottom)*1vh);}
-.logo.hansgpunkt img { width: calc(var(--hansgpunkt-size)*1vw); }
+.logo.hansgpunkt img { width: calc(var(--hansgpunkt-size)*1vw); height:auto; }
 
 /* ====== Footer ====== */
 .footer {
@@ -71,92 +72,69 @@ html, body {
   z-index: 20;
   line-height: 1.4;
 }
-.footer a { color: #888; text-decoration: underline; }
-.footer a:hover { color: #aaa; }
+.footer a { color:#888; text-decoration: underline; }
+.footer a:hover { color:#aaa; }
 
 /* ====== Typewriter ====== */
-.typewriter { position: fixed; top: 10px; left: 30px; font-size: 2rem; white-space: nowrap; z-index: 10;}
+.typewriter { position: fixed; top:10px; left:30px; font-size:2rem; white-space:nowrap; z-index:10; }
 span.blink-dot { animation: blinkForever 1s step-start infinite; margin-left:2px; }
-@keyframes blinkForever {0%,50%,100%{opacity:1;}25%,75%{opacity:0;}}
+@keyframes blinkForever { 0%,50%,100%{opacity:1;} 25%,75%{opacity:0;} }
 
 /* ====== Desktop Icons ====== */
-.desktop-icon { position: absolute; display:flex; flex-direction:column; align-items:center; }
-.icon { width:48px; height:48px; cursor:pointer; border:2px solid #fff; background:#c0c0c0; box-shadow:-2px -2px 0 #808080, 2px 2px 0 #dfdfdf; }
-.icon:hover { transform: scale(1.1); box-shadow:0 0 6px rgba(255,255,255,0.6);}
+.desktop-icon { position:absolute; display:flex; flex-direction:column; align-items:center; transform:translate(-50%,-50%); }
+.desktop-icon img.icon { width:48px; height:48px; cursor:pointer; border:2px solid #fff; background:#c0c0c0; box-shadow:-2px -2px 0 #808080,2px 2px 0 #dfdfdf; }
+.desktop-icon img.icon:hover { transform:scale(1.1); box-shadow:0 0 6px rgba(255,255,255,0.6); }
 .label { margin-top:8px; font-size:14px; text-shadow:1px 1px 0 rgba(255,255,255,0.8); }
 
-/* ====== Popups ====== */
-#popup, #popup-counter {
-  position: fixed;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  opacity:0;
-  pointer-events:none;
-  transition: opacity 0.35s ease;
-  z-index:100;
-}
+/* ====== Desktop Positions ====== */
+.desktop-icon.icon1 { top:50%; left:45%; }
+.desktop-icon.icon2 { top:65%; left:55%; }
+
+/* ====== Popup / Win95 Fenster ====== */
+#popup, #popup-counter { position: fixed; inset:0; display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity 0.35s ease; z-index:100; }
 #popup:target, #popup-counter:target { opacity:1; pointer-events:all; }
-
-.win95-window {
-  background:#c0c0c0;
-  border:2px solid #fff;
-  box-shadow: inset -2px -2px 0 #808080, inset 2px 2px 0 #dfdfdf, 0 0 0 1px black;
-  width:55vw; max-width:600px; display:flex; flex-direction:column; animation:popIn 0.25s ease forwards;
-}
-.win95-window .titlebar {
-  background: linear-gradient(to bottom,#000080,#000060);
-  color:white;
-  font-weight:bold;
-  padding:4px 8px;
-  display:flex; justify-content:space-between; align-items:center;
-  font-family:'IBM Plex Mono', monospace; font-size:14px;
-}
-.win95-window .titlebar a { text-decoration:none; font-weight:bold; padding:0 6px; border:1px solid #fff; background:#c0c0c0; color:black; box-shadow:inset -1px -1px 0 #808080, inset 1px 1px 0 #dfdfdf;}
-.win95-window .titlebar a:hover { background:#999; }
+.win95-window { background:#c0c0c0; border:2px solid #fff; box-shadow:inset -2px -2px 0 #808080,inset 2px 2px 0 #dfdfdf,0 0 0 1px black; width:55vw; max-width:600px; display:flex; flex-direction:column; animation:popIn 0.25s ease forwards;}
+.win95-window .titlebar { background:linear-gradient(to bottom,#000080,#000060); color:white; font-weight:bold; padding:4px 8px; display:flex; justify-content:space-between; align-items:center; font-family:'IBM Plex Mono', monospace; font-size:14px;}
+.win95-window .titlebar a { text-decoration:none; font-weight:bold; padding:0 6px; border:1px solid #fff; background:#c0c0c0; color:black; box-shadow:inset -1px -1px 0 #808080,inset 1px 1px 0 #dfdfdf;}
+.win95-window .titlebar a:hover{ background:#999; }
 .win95-window .content { padding:6px; background:#c0c0c0; display:flex; justify-content:center; align-items:center; }
-.win95-window .content img { max-width:95%; max-height:75vh; object-fit:contain; }
+.win95-window .content img { max-width:95%; max-height:75vh; height:auto; width:auto; object-fit:contain; }
 
-.counter-content { padding:20px; background:#c0c0c0; display:flex; flex-direction:column; align-items:center; justify-content:center;}
-.counter-bar { width:80%; height:25px; border:2px inset #808080; background:#dfdfdf; position:relative; overflow:hidden; margin-top:10px; }
-.counter-fill { position:absolute; top:0; left:0; height:100%; width:0%; background:repeating-linear-gradient(-45deg,#00cc00,#00cc00 4px,#008800 4px,#008800 8px); transition: width 2s ease-out;}
+/* ====== Counter Fenster ====== */
+.counter-content { padding:20px; background:#c0c0c0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+.counter-bar { width:80%; height:25px; border:2px inset #808080; background:#dfdfdf; position:relative; overflow:hidden; margin-top:10px;}
+.counter-fill { position:absolute; top:0; left:0; height:100%; width:0%; background: repeating-linear-gradient(-45deg,#00cc00,#00cc00 4px,#008800 4px,#008800 8px); transition: width 3s linear; }
 .counter-value { font-size:1.5rem; margin-top:12px; font-family:'IBM Plex Mono', monospace; color:#000; }
 
-@keyframes popIn { 0%{transform:scale(0.9);opacity:0;}60%{transform:scale(1.05);opacity:1;}100%{transform:scale(1);opacity:1;} }
+@keyframes popIn { 0% {transform:scale(0.9); opacity:0;} 60% {transform:scale(1.05); opacity:1;} 100% {transform:scale(1); opacity:1;} }
 
 /* ====== Mobile Anpassungen ====== */
 @media(max-width:768px){
-  .typewriter{font-size:1.6rem; left:10px; top:5px;}
+  .typewriter { font-size:1.6rem; left:10px; top:5px; }
   :root{
-    --senorsonate-size:20;--senorsonate-left:15;--senorsonate-bottom:6;
-    --meyks-size:12;--meyks-left:48;--meyks-bottom:4;
-    --hansgpunkt-size:29;--hansgpunkt-left:64;--hansgpunkt-bottom:3;
-
-    /* Desktop Icons mobil einstellbar */
-    --desktopicon1-size:36px; --desktopicon1-left:40%; --desktopicon1-top:50%;
-    --desktopicon2-size:36px; --desktopicon2-left:60%; --desktopicon2-top:65%;
+    --senorsonate-size:20; --senorsonate-left:15; --senorsonate-bottom:6;
+    --meyks-size:12; --meyks-left:48; --meyks-bottom:4;
+    --hansgpunkt-size:29; --hansgpunkt-left:64; --hansgpunkt-bottom:3;
   }
-  .footer{ font-size:var(--footer-fontsize-mobile); bottom:var(--footer-bottom-mobile); text-align:center; padding:8px 10px; line-height:1.5; }
-  .win95-window { width:90vw; max-width:none; }
-  .win95-window .content img { max-width:90%; max-height:60vh; }
+  .footer{ font-size:var(--footer-fontsize-mobile); bottom:var(--footer-bottom-mobile); text-align:center; padding:8px 10px; }
+  .win95-window{ width:90vw; max-width:none; }
+  .win95-window .content img{ max-width:90%; max-height:60vh; }
 
-  /* Desktop Icons mobil */
-  .desktop-icon.icon1 { left: var(--desktopicon1-left); top: var(--desktopicon1-top); }
-  .desktop-icon.icon1 .icon { width: var(--desktopicon1-size); height: var(--desktopicon1-size); }
-  .desktop-icon.icon2 { left: var(--desktopicon2-left); top: var(--desktopicon2-top); }
-  .desktop-icon.icon2 .icon { width: var(--desktopicon2-size); height: var(--desktopicon2-size); }
+  /* Mobile Desktop Icons */
+  .desktop-icon.icon1 { top:var(--desktopicon1-top-mobile); left:var(--desktopicon1-left-mobile); width:var(--desktopicon1-size-mobile); height:var(--desktopicon1-size-mobile); }
+  .desktop-icon.icon2 { top:var(--desktopicon2-top-mobile); left:var(--desktopicon2-left-mobile); width:var(--desktopicon2-size-mobile); height:var(--desktopicon2-size-mobile); }
 }
 </style>
 </head>
+
 <body>
 
 <!-- Logos -->
-<div class="logo SenorSonate"><a href="https://www.instagram.com/enoronate/" target="_blank"><img src="assets/Senorplatzhalter.png" alt="SenorSonate"></a></div>
-<div class="logo meyks"><a href="https://www.instagram.com/prod.meyks/" target="_blank"><img src="assets/meyksnew.png" alt="Meyks"></a></div>
-<div class="logo hansgpunkt"><a href="https://www.instagram.com/hanzgpunkt/" target="_blank"><img src="assets/logo.gif" alt="Hansgpunkt"></a></div>
+<div class="logo SenorSonate"><a href="https://www.instagram.com/enoronate/" target="_blank"><img src="assets/Senorplatzhalter.png" alt="SenorSonate Logo"></a></div>
+<div class="logo meyks"><a href="https://www.instagram.com/prod.meyks/" target="_blank"><img src="assets/meyksnew.png" alt="Meyks Logo"></a></div>
+<div class="logo hansgpunkt"><a href="https://www.instagram.com/hanzgpunkt/" target="_blank"><img src="assets/logo.gif" alt="Hansgpunkt Logo"></a></div>
 
-<!-- SDA Typing -->
+<!-- SDA Typewriter -->
 <h1 class="typewriter" id="typewriter"></h1>
 
 <!-- Desktop Icons -->
@@ -164,10 +142,10 @@ span.blink-dot { animation: blinkForever 1s step-start infinite; margin-left:2px
   <a href="#popup"><img class="icon" src="assets/Floppy.png" alt="Floppy"><div class="label">starkbier.gif</div></a>
 </div>
 <div class="desktop-icon icon2">
-  <a href="#popup-counter"><img class="icon" src="assets/fire_alpha.png" alt="Zigaretten"><div class="label">Zigaretten.exe</div></a>
+  <a href="#popup-counter"><img class="icon" src="assets/fire_alpha.png" alt="Folder"><div class="label">Zigaretten.exe</div></a>
 </div>
 
-<!-- Starkbier GIF Popup -->
+<!-- GIF Popup -->
 <div id="popup">
   <div class="win95-window">
     <div class="titlebar"><span>starkbier.gif</span><a href="#">×</a></div>
@@ -175,7 +153,7 @@ span.blink-dot { animation: blinkForever 1s step-start infinite; margin-left:2px
   </div>
 </div>
 
-<!-- Zigaretten Counter Popup -->
+<!-- Counter Popup -->
 <div id="popup-counter">
   <div class="win95-window">
     <div class="titlebar"><span>Zigaretten.exe</span><a href="#">×</a></div>
@@ -188,17 +166,17 @@ span.blink-dot { animation: blinkForever 1s step-start infinite; margin-left:2px
 
 <!-- Footer -->
 <div class="footer">
-<p>&copy; 2025 KAFFAKOILEKTIV |
-<a href="https://www.instagram.com/hanzgpunkt/" target="_blank">Hansgpunkt</a>,
-<a href="https://www.instagram.com/prod.meyks/" target="_blank">Meyks</a>,
-<a href="https://www.instagram.com/enoronate/" target="_blank">SenorSonate</a> |
-Keine Datenerhebung oder Weitergabe.</p>
+  <p>&copy; 2025 KAFFAKOILEKTIV |
+  <a href="https://www.instagram.com/hanzgpunkt/" target="_blank">Hansgpunkt</a>,
+  <a href="https://www.instagram.com/prod.meyks/" target="_blank">Meyks</a>,
+  <a href="https://www.instagram.com/enoronate/" target="_blank">SenorSonate</a> |
+  Keine Datenerhebung oder Weitergabe.</p>
 </div>
 
 <script>
-// === SDA Typewriter ===
-const typewriter=document.getElementById('typewriter');
-function randDelay(min,max){return Math.floor(Math.random()*(max-min))+min;}
+// SDA Typewriter
+const typewriter = document.getElementById('typewriter');
+function randDelay(min,max){ return Math.floor(Math.random()*(max-min))+min; }
 async function typeSequence(){
   const seq=['S','D','A','.','.','.','deleteDots3',' ','[','A','T',']','•'];
   for(let item of seq){
@@ -212,7 +190,8 @@ async function typeSequence(){
       }
     } else {
       await new Promise(r=>setTimeout(r,randDelay(200,500)));
-      const span=document.createElement('span'); span.textContent=item;
+      const span=document.createElement('span');
+      span.textContent=item;
       if(item==='•') span.classList.add('blink-dot');
       typewriter.appendChild(span);
     }
@@ -220,40 +199,39 @@ async function typeSequence(){
 }
 typeSequence();
 
-// === Zigaretten Counter synchronisiert mit Balken ===
+// Zigaretten Counter
 function updateCounter(){
   const startDate=new Date("2025-10-27");
   const today=new Date();
   const days=Math.floor((today-startDate)/(1000*60*60*24));
   const total=286+days*15;
-
   const fill=document.getElementById('fill');
   const count=document.getElementById('count');
-
   fill.style.width='0%';
   count.textContent='0 Zigaretten';
 
-  let current=0;
-  const duration=2000; // Balken-Animation 2s
-  const stepTime=25;
-  const steps=Math.ceil(duration/stepTime);
-  const stepAmount=total/steps;
-
-  fill.style.transition=`width ${duration}ms linear`;
+  // Balkenanimation
+  fill.style.transition='width 3s linear';
   requestAnimationFrame(()=>{ fill.style.width='100%'; });
 
-  let step=0;
-  const anim=setInterval(()=>{
-    step++;
-    current=Math.round(step*stepAmount);
-    if(current>total) current=total;
-    count.textContent=current+' Zigaretten';
-    if(step>=steps){ clearInterval(anim); count.textContent=total+' Zigaretten'; }
-  }, stepTime);
+  // Zähler synchron zur Balkenanimation
+  let start=0;
+  const duration=3000; //ms
+  const stepTime=25; 
+  const steps=Math.ceil(duration/stepTime);
+  const increment=total/steps;
+  const interval=setInterval(()=>{
+    start+=increment;
+    if(start>=total){ start=total; clearInterval(interval); }
+    count.textContent=Math.floor(start)+' Zigaretten';
+  },stepTime);
 }
 
-// Start Counter beim Klick auf Icon
-document.querySelectorAll('a[href="#popup-counter"]').forEach(icon=>{ icon.addEventListener('click', updateCounter); });
+// Counter starten bei Klick
+document.querySelectorAll('a[href="#popup-counter"]').forEach(el=>{
+  el.addEventListener('click',updateCounter);
+});
 </script>
+
 </body>
 </html>
