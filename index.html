@@ -4,7 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SDA Desktop</title>
-<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+
+<!-- Lokale Win95 Schrift -->
+<style>
+@font-face {
+  font-family: 'W95FA';
+  src: url('assets/fonts/w95fa.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+</style>
 
 <style>
 :root {
@@ -39,7 +48,7 @@ html, body {
   margin: 0;
   padding: 0;
   background-color: #c0c0c0;
-  font-family: 'Special Elite','IBM Plex Mono', monospace;
+  font-family: 'W95FA', monospace;
   overflow-x: hidden;
   position: relative;
   background-image:
@@ -91,10 +100,20 @@ span.blink-dot { animation: blinkForever 1s step-start infinite; margin-left:2px
 .desktop-icon.icon2 { top:65%; left:55%; }
 
 /* ====== Popup / Win95 Fenster ====== */
+/* Schriftangleichung für Win95 Fenster */
+.win95-window,
+.win95-window * {
+  font-family: 'W95FA', monospace !important;
+  letter-spacing: 0.5px;
+}
+
+.label {
+  font-family: 'W95FA', monospace !important;
+}
 #popup, #popup-counter { position: fixed; inset:0; display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity 0.35s ease; z-index:100; }
 #popup:target, #popup-counter:target { opacity:1; pointer-events:all; }
 .win95-window { background:#c0c0c0; border:2px solid #fff; box-shadow:inset -2px -2px 0 #808080,inset 2px 2px 0 #dfdfdf,0 0 0 1px black; width:55vw; max-width:600px; display:flex; flex-direction:column; animation:popIn 0.25s ease forwards;}
-.win95-window .titlebar { background:linear-gradient(to bottom,#000080,#000060); color:white; font-weight:bold; padding:4px 8px; display:flex; justify-content:space-between; align-items:center; font-family:'IBM Plex Mono', monospace; font-size:14px;}
+.win95-window .titlebar { background:linear-gradient(to bottom,#000080,#000060); color:white; font-weight:bold; padding:4px 8px; display:flex; justify-content:space-between; align-items:center; font-family:'W95FA', monospace; font-size:14px;}
 .win95-window .titlebar a { text-decoration:none; font-weight:bold; padding:0 6px; border:1px solid #fff; background:#c0c0c0; color:black; box-shadow:inset -1px -1px 0 #808080,inset 1px 1px 0 #dfdfdf;}
 .win95-window .titlebar a:hover{ background:#999; }
 .win95-window .content { padding:6px; background:#c0c0c0; display:flex; justify-content:center; align-items:center; }
@@ -104,7 +123,7 @@ span.blink-dot { animation: blinkForever 1s step-start infinite; margin-left:2px
 .counter-content { padding:20px; background:#c0c0c0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
 .counter-bar { width:80%; height:25px; border:2px inset #808080; background:#dfdfdf; position:relative; overflow:hidden; margin-top:10px;}
 .counter-fill { position:absolute; top:0; left:0; height:100%; width:0%; background: repeating-linear-gradient(-45deg,#00cc00,#00cc00 4px,#008800 4px,#008800 8px); transition: width 3s linear; }
-.counter-value { font-size:1.5rem; margin-top:12px; font-family:'IBM Plex Mono', monospace; color:#000; }
+.counter-value { font-size:1.5rem; margin-top:12px; font-family:'W95FA', monospace; color:#000; }
 
 @keyframes popIn { 0% {transform:scale(0.9); opacity:0;} 60% {transform:scale(1.05); opacity:1;} 100% {transform:scale(1); opacity:1;} }
 
