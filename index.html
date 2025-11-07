@@ -7,6 +7,7 @@
 
 <!-- Lokale Win95 Schrift -->
 <style>
+
 @font-face {
   font-family: 'W95FA';
   src: url('assets/fonts/w95fa.woff') format('woff');
@@ -86,8 +87,23 @@ html, body {
 
 /* ====== Typewriter ====== */
 .typewriter { position: fixed; top:10px; left:30px; font-size:2rem; white-space:nowrap; z-index:10; }
-span.blink-dot { animation: blinkForever 1s step-start infinite; margin-left:2px; }
-@keyframes blinkForever { 0%,50%,100%{opacity:1;} 25%,75%{opacity:0;} }
+
+/* ====== Pixeliger blinkender Win95-Punkt ===== */
+span.blink-dot {
+  display: inline-block;
+  width: 8px;
+  height: 14px;
+  background-color: #000;
+  vertical-align: middle;
+  margin-left: 2px;
+  image-rendering: pixelated;
+  animation: blinkPixel 1s steps(1) infinite;
+}
+
+@keyframes blinkPixel {
+  0%, 50%, 100% { opacity: 1; }
+  25%, 75% { opacity: 0; }
+}
 
 /* ====== Desktop Icons ====== */
 .desktop-icon { position:absolute; display:flex; flex-direction:column; align-items:center; transform:translate(-50%,-50%); }
@@ -210,8 +226,15 @@ async function typeSequence(){
     } else {
       await new Promise(r=>setTimeout(r,randDelay(200,500)));
       const span=document.createElement('span');
-      span.textContent=item;
-      if(item==='•') span.classList.add('blink-dot');
+      
+      // Sonderbehandlung für den blinkenden Punkt
+      if(item === '•') {
+        span.classList.add('blink-dot');
+        span.textContent = ''; // kein runder Punkt, nur CSS-Cursor
+      } else {
+        span.textContent = item; // normale Buchstaben werden angezeigt
+      }
+
       typewriter.appendChild(span);
     }
   }
