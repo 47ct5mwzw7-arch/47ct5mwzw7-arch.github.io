@@ -113,7 +113,7 @@ span.blink-dot {
 
 .desktop-icon img.icon { width:48px; height:48px; cursor:pointer; border:2px solid #fff; background:#c0c0c0; box-shadow:-2px -2px 0 #808080,2px 2px 0 #dfdfdf; }
 .desktop-icon img.icon:hover { transform:scale(1.1); box-shadow:0 0 6px rgba(255,255,255,0.6); }
-.label { margin-top:8px; font-size:14px; text-shadow:1px 1px 0 rgba(255,255,255,0.8); }
+.label { margin-top:8px; font-size:14px; text-shadow:1px 1px 0 rgba(255,255,255,0.8); color: #000000 }
 
 /* ====== Desktop Positions ====== */
 .desktop-icon.icon1 { top:50%; left:45%; }
@@ -181,7 +181,7 @@ span.blink-dot {
   <a href="#popup"><img class="icon" src="assets/Floppy.png" alt="Floppy"><div class="label">starkbier.gif</div></a>
 </div>
 <div class="desktop-icon icon2">
-  <a href="#popup-counter"><img class="icon" src="assets/fire_alpha.png" alt="Folder"><div class="label">Zigaretten.exe</div></a>
+  <a href="#popup-counter"><img class="icon" src="assets/fire_alpha.png" alt="Folder"><div class="label">Kippenpause.exe</div></a>
 </div>
 
 <!-- GIF Popup -->
@@ -247,7 +247,7 @@ function updateCounter(){
   const startDate=new Date("2025-10-27");
   const today=new Date();
   const days=Math.floor((today-startDate)/(1000*60*60*24));
-  const total=286+days*15;
+  const total=706+days*30;
   const fill=document.getElementById('fill');
   const count=document.getElementById('count');
   fill.style.width='0%';
