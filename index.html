@@ -107,9 +107,13 @@ span.blink-dot {
 
 /* ====== Desktop Icons ====== */
 .desktop-icon { position:absolute; display:flex; flex-direction:column; align-items:center; transform:translate(-50%,-50%); }
+
+/* Entfernt Unterstrich */
+.desktop-icon a { text-decoration:none; }
+
 .desktop-icon img.icon { width:48px; height:48px; cursor:pointer; border:2px solid #fff; background:#c0c0c0; box-shadow:-2px -2px 0 #808080,2px 2px 0 #dfdfdf; }
 .desktop-icon img.icon:hover { transform:scale(1.1); box-shadow:0 0 6px rgba(255,255,255,0.6); }
-.label { margin-top:8px; font-size:14px; text-shadow:1px 1px 0 rgba(255,255,255,0.8); color: #000000}
+.label { margin-top:8px; font-size:14px; text-shadow:1px 1px 0 rgba(255,255,255,0.8); }
 
 /* ====== Desktop Positions ====== */
 .desktop-icon.icon1 { top:50%; left:45%; }
@@ -226,15 +230,12 @@ async function typeSequence(){
     } else {
       await new Promise(r=>setTimeout(r,randDelay(200,500)));
       const span=document.createElement('span');
-      
-      // Sonderbehandlung für den blinkenden Punkt
       if(item === '•') {
         span.classList.add('blink-dot');
-        span.textContent = ''; // kein runder Punkt, nur CSS-Cursor
+        span.textContent = '';
       } else {
-        span.textContent = item; // normale Buchstaben werden angezeigt
+        span.textContent = item;
       }
-
       typewriter.appendChild(span);
     }
   }
@@ -252,13 +253,11 @@ function updateCounter(){
   fill.style.width='0%';
   count.textContent='0 Zigaretten';
 
-  // Balkenanimation
   fill.style.transition='width 3s linear';
   requestAnimationFrame(()=>{ fill.style.width='100%'; });
 
-  // Zähler synchron zur Balkenanimation
   let start=0;
-  const duration=3000; //ms
+  const duration=3000;
   const stepTime=25; 
   const steps=Math.ceil(duration/stepTime);
   const increment=total/steps;
@@ -269,7 +268,6 @@ function updateCounter(){
   },stepTime);
 }
 
-// Counter starten bei Klick
 document.querySelectorAll('a[href="#popup-counter"]').forEach(el=>{
   el.addEventListener('click',updateCounter);
 });
