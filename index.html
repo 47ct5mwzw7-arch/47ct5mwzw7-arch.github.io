@@ -7,7 +7,6 @@
 
 <!-- Lokale Win95 Schrift -->
 <style>
-
 @font-face {
   font-family: 'W95FA';
   src: url('assets/fonts/w95fa.woff') format('woff');
@@ -107,10 +106,7 @@ span.blink-dot {
 
 /* ====== Desktop Icons ====== */
 .desktop-icon { position:absolute; display:flex; flex-direction:column; align-items:center; transform:translate(-50%,-50%); }
-
-/* Entfernt Unterstrich */
 .desktop-icon a { text-decoration:none; }
-
 .desktop-icon img.icon { width:48px; height:48px; cursor:pointer; border:2px solid #fff; background:#c0c0c0; box-shadow:-2px -2px 0 #808080,2px 2px 0 #dfdfdf; }
 .desktop-icon img.icon:hover { transform:scale(1.1); box-shadow:0 0 6px rgba(255,255,255,0.6); }
 .label { margin-top:8px; font-size:14px; text-shadow:1px 1px 0 rgba(255,255,255,0.8); color: #000000 }
@@ -120,18 +116,12 @@ span.blink-dot {
 .desktop-icon.icon2 { top:65%; left:55%; }
 
 /* ====== Popup / Win95 Fenster ====== */
-/* Schriftangleichung für Win95 Fenster */
 .win95-window,
-.win95-window * {
-  font-family: 'W95FA', monospace !important;
-  letter-spacing: 0.5px;
-}
+.win95-window * { font-family: 'W95FA', monospace !important; letter-spacing: 0.5px; }
 
-.label {
-  font-family: 'W95FA', monospace !important;
-}
-#popup, #popup-counter { position: fixed; inset:0; display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity 0.35s ease; z-index:100; }
-#popup:target, #popup-counter:target { opacity:1; pointer-events:all; }
+#popup, #popup-counter, #popup-snippet { position: fixed; inset:0; display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity 0.35s ease; z-index:100; }
+#popup:target, #popup-counter:target, #popup-snippet:target { opacity:1; pointer-events:all; }
+
 .win95-window { background:#c0c0c0; border:2px solid #fff; box-shadow:inset -2px -2px 0 #808080,inset 2px 2px 0 #dfdfdf,0 0 0 1px black; width:55vw; max-width:600px; display:flex; flex-direction:column; animation:popIn 0.25s ease forwards;}
 .win95-window .titlebar { background:linear-gradient(to bottom,#000080,#000060); color:white; font-weight:bold; padding:4px 8px; display:flex; justify-content:space-between; align-items:center; font-family:'W95FA', monospace; font-size:14px;}
 .win95-window .titlebar a { text-decoration:none; font-weight:bold; padding:0 6px; border:1px solid #fff; background:#c0c0c0; color:black; box-shadow:inset -1px -1px 0 #808080,inset 1px 1px 0 #dfdfdf;}
@@ -199,6 +189,18 @@ span.blink-dot {
     <div class="counter-content">
       <div class="counter-bar"><div class="counter-fill" id="fill"></div></div>
       <div class="counter-value" id="count">0</div>
+    </div>
+  </div>
+</div>
+
+<!-- SNIPPET Popup -->
+<div id="popup-snippet">
+  <div class="win95-window">
+    <div class="titlebar"><span>PDSW_SNIPPET.mp3</span><a href="#">×</a></div>
+    <div class="content">
+      <audio controls style="width:100%">
+        <source src="assets/pdsw_snippet.mp3" type="audio/mpeg">
+      </audio>
     </div>
   </div>
 </div>
@@ -271,6 +273,11 @@ function updateCounter(){
 document.querySelectorAll('a[href="#popup-counter"]').forEach(el=>{
   el.addEventListener('click',updateCounter);
 });
+
+// ==== SNIPPET Hash Check ====
+if(location.hash === '#pdswsnippet'){
+  location.hash = '#popup-snippet';
+}
 </script>
 
 </body>
