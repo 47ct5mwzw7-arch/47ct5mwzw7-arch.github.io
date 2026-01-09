@@ -278,6 +278,15 @@ document.querySelectorAll('a[href="#popup-counter"]').forEach(el=>{
 if(location.hash === '#pdswsnippet'){
   location.hash = '#popup-snippet';
 }
+  // ==== SNIPPET STOPPEN BEIM SCHLIESSEN ====
+const snippetAudio = document.querySelector('#popup-snippet audio');
+
+window.addEventListener('hashchange', () => {
+  if (location.hash !== '#popup-snippet' && snippetAudio) {
+    snippetAudio.pause();
+    snippetAudio.currentTime = 0;
+  }
+});
 </script>
 
 </body>
