@@ -219,7 +219,7 @@ span.blink-dot {
 const typewriter = document.getElementById('typewriter');
 function randDelay(min,max){ return Math.floor(Math.random()*(max-min))+min; }
 async function typeSequence(){
-  const seq=['S','D','A','.','.','.','deleteDots3',' ','[','A','T',']','•'];
+  const seq=['S','D','A','•'];
   for(let item of seq){
     if(item.startsWith('deleteDots')){
       let count=parseInt(item.replace('deleteDots',''));
