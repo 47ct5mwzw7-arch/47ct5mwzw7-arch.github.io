@@ -40,6 +40,16 @@
   --desktopicon2-top-mobile: 60%;
   --desktopicon2-left-mobile: 50%;
   --desktopicon2-size-mobile: 50px;
+
+  /* Freies Hauptseiten-Bild Desktop */
+  --mainimage-size: 35;
+  --mainimage-left: 75;
+  --mainimage-top: 30;
+
+  /* Freies Hauptseiten-Bild Mobile */
+  --mainimage-size-mobile: 45;
+  --mainimage-left-mobile: 50;
+  --mainimage-top-mobile: 25;
 }
 
 /* ====== Grundlayout ====== */
@@ -67,6 +77,20 @@ html, body {
 .logo.meyks img { width: calc(var(--meyks-size)*1vw); height:auto; }
 .logo.hansgpunkt { left: calc(var(--hansgpunkt-left)*1%); bottom: calc(var(--hansgpunkt-bottom)*1vh);}
 .logo.hansgpunkt img { width: calc(var(--hansgpunkt-size)*1vw); height:auto; }
+
+/* ====== Hauptseiten-Bild Desktop ====== */
+.main-image {
+  position: fixed;
+  left: calc(var(--mainimage-left) * 1%);
+  top: calc(var(--mainimage-top) * 1%);
+  transform: translate(-50%, -50%);
+  z-index: 3;
+}
+
+.main-image img {
+  width: calc(var(--mainimage-size) * 1vw);
+  height: auto;
+}
 
 /* ====== Footer ====== */
 .footer {
@@ -98,30 +122,21 @@ span.blink-dot {
   image-rendering: pixelated;
   animation: blinkPixel 1s steps(1) infinite;
 }
-
-@keyframes blinkPixel {
-  0%, 50%, 100% { opacity: 1; }
-  25%, 75% { opacity: 0; }
-}
+@keyframes blinkPixel { 0%,50%,100% { opacity:1; } 25%,75% { opacity:0; } }
 
 /* ====== Desktop Icons ====== */
 .desktop-icon { position:absolute; display:flex; flex-direction:column; align-items:center; transform:translate(-50%,-50%); }
 .desktop-icon a { text-decoration:none; }
 .desktop-icon img.icon { width:48px; height:48px; cursor:pointer; border:2px solid #fff; background:#c0c0c0; box-shadow:-2px -2px 0 #808080,2px 2px 0 #dfdfdf; }
 .desktop-icon img.icon:hover { transform:scale(1.1); box-shadow:0 0 6px rgba(255,255,255,0.6); }
-.label { margin-top:8px; font-size:14px; text-shadow:1px 1px 0 rgba(255,255,255,0.8); color: #000000 }
-
-/* ====== Desktop Positions ====== */
+.label { margin-top:8px; font-size:14px; text-shadow:1px 1px 0 rgba(255,255,255,0.8); color: #000000; }
 .desktop-icon.icon1 { top:50%; left:45%; }
 .desktop-icon.icon2 { top:65%; left:55%; }
 
 /* ====== Popup / Win95 Fenster ====== */
-.win95-window,
-.win95-window * { font-family: 'W95FA', monospace !important; letter-spacing: 0.5px; }
-
+.win95-window, .win95-window * { font-family: 'W95FA', monospace !important; letter-spacing: 0.5px; }
 #popup, #popup-counter, #popup-snippet { position: fixed; inset:0; display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity 0.35s ease; z-index:100; }
 #popup:target, #popup-counter:target, #popup-snippet:target { opacity:1; pointer-events:all; }
-
 .win95-window { background:#c0c0c0; border:2px solid #fff; box-shadow:inset -2px -2px 0 #808080,inset 2px 2px 0 #dfdfdf,0 0 0 1px black; width:55vw; max-width:600px; display:flex; flex-direction:column; animation:popIn 0.25s ease forwards;}
 .win95-window .titlebar { background:linear-gradient(to bottom,#000080,#000060); color:white; font-weight:bold; padding:4px 8px; display:flex; justify-content:space-between; align-items:center; font-family:'W95FA', monospace; font-size:14px;}
 .win95-window .titlebar a { text-decoration:none; font-weight:bold; padding:0 6px; border:1px solid #fff; background:#c0c0c0; color:black; box-shadow:inset -1px -1px 0 #808080,inset 1px 1px 0 #dfdfdf;}
@@ -152,6 +167,15 @@ span.blink-dot {
   /* Mobile Desktop Icons */
   .desktop-icon.icon1 { top:var(--desktopicon1-top-mobile); left:var(--desktopicon1-left-mobile); width:var(--desktopicon1-size-mobile); height:var(--desktopicon1-size-mobile); }
   .desktop-icon.icon2 { top:var(--desktopicon2-top-mobile); left:var(--desktopicon2-left-mobile); width:var(--desktopicon2-size-mobile); height:var(--desktopicon2-size-mobile); }
+
+  /* Mobile Hauptseiten-Bild */
+  .main-image {
+    left: calc(var(--mainimage-left-mobile) * 1%);
+    top: calc(var(--mainimage-top-mobile) * 1%);
+  }
+  .main-image img {
+    width: calc(var(--mainimage-size-mobile) * 1vw);
+  }
 }
 </style>
 </head>
@@ -162,6 +186,11 @@ span.blink-dot {
 <div class="logo SenorSonate"><a href="https://www.instagram.com/enoronate/" target="_blank"><img src="assets/Senorplatzhalter.png" alt="SenorSonate Logo"></a></div>
 <div class="logo meyks"><a href="https://www.instagram.com/prod.meyks/" target="_blank"><img src="assets/meyksnew.png" alt="Meyks Logo"></a></div>
 <div class="logo hansgpunkt"><a href="https://www.instagram.com/hanzgpunkt/" target="_blank"><img src="assets/logo.gif" alt="Hansgpunkt Logo"></a></div>
+
+<!-- Freies Hauptseiten-Bild -->
+<div class="main-image">
+  <img src="assets/washastnfürndreher.JPG" alt="Main Visual">
+</div>
 
 <!-- SDA Typewriter -->
 <h1 class="typewriter" id="typewriter"></h1>
@@ -278,9 +307,8 @@ document.querySelectorAll('a[href="#popup-counter"]').forEach(el=>{
 if(location.hash === '#pdswsnippet'){
   location.hash = '#popup-snippet';
 }
-  // ==== SNIPPET STOPPEN BEIM SCHLIESSEN ====
+// ==== SNIPPET STOPPEN BEIM SCHLIESSEN ====
 const snippetAudio = document.querySelector('#popup-snippet audio');
-
 window.addEventListener('hashchange', () => {
   if (location.hash !== '#popup-snippet' && snippetAudio) {
     snippetAudio.pause();
