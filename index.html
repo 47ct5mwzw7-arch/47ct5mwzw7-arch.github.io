@@ -42,6 +42,8 @@
   --desktopicon2-size-mobile: 50px;
   --desktopicon-hidden-top-mobile: 50%;
   --desktopicon-hidden-left-mobile: 60%;
+  --desktopicon-txt-top-mobile: 40%;
+  --desktopicon-txt-left-mobile: 70%;
 }
 
 /* ====== Grundlayout ====== */
@@ -103,38 +105,148 @@ span.blink-dot {
 @keyframes blinkPixel { 0%,50%,100% { opacity:1; } 25%,75% { opacity:0; } }
 
 /* ====== Desktop Icons ====== */
-.desktop-icon { position:absolute; display:flex; flex-direction:column; align-items:center; transform:translate(-50%,-50%); }
-.desktop-icon a { text-decoration:none; }
+.desktop-icon { position:absolute; display:flex; flex-direction:column; align-items:center; transform:translate(-50%,-50%); cursor: pointer; }
 .desktop-icon img.icon { width:48px; height:48px; cursor:pointer; border:2px solid #fff; background:#c0c0c0; box-shadow:-2px -2px 0 #808080,2px 2px 0 #dfdfdf; }
 .desktop-icon img.icon:hover { transform:scale(1.1); box-shadow:0 0 6px rgba(255,255,255,0.6); }
 .label { margin-top:8px; font-size:14px; text-shadow:1px 1px 0 rgba(255,255,255,0.8); color: #000000; }
 .desktop-icon.icon1 { top:50%; left:45%; }
 .desktop-icon.icon2 { top:65%; left:55%; }
-.desktop-icon.icon-hidden { top:55%; left:60%; } /* neues Icon Position */
+.desktop-icon.icon-hidden { top:55%; left:60%; }
+.desktop-icon.icon-txt { top:50%; left:70%; }
 
-/* ====== Popup / Win95 Fenster ====== */
-.win95-window, .win95-window * { font-family: 'W95FA', monospace !important; letter-spacing: 0.5px; }
-#popup, #popup-counter, #popup-snippet, #popup-hidden { position: fixed; inset:0; display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity 0.35s ease; z-index:100; }
-#popup:target, #popup-counter:target, #popup-snippet:target, #popup-hidden:target { opacity:1; pointer-events:all; }
-.win95-window { background:#c0c0c0; border:2px solid #fff; box-shadow:inset -2px -2px 0 #808080,inset 2px 2px 0 #dfdfdf,0 0 0 1px black; width:55vw; max-width:600px; display:flex; flex-direction:column; animation:popIn 0.25s ease forwards;}
-.win95-window .titlebar { background:linear-gradient(to bottom,#000080,#000060); color:white; font-weight:bold; padding:4px 8px; display:flex; justify-content:space-between; align-items:center; font-family:'W95FA', monospace; font-size:14px;}
-.win95-window .titlebar a { text-decoration:none; font-weight:bold; padding:0 6px; border:1px solid #fff; background:#c0c0c0; color:black; box-shadow:inset -1px -1px 0 #808080,inset 1px 1px 0 #dfdfdf;}
-.win95-window .titlebar a:hover{ background:#999; }
-.win95-window .content { padding:6px; background:#c0c0c0; display:flex; justify-content:center; align-items:center; }
-.win95-window .content img { max-width:95%; max-height:75vh; height:auto; width:auto; object-fit:contain; }
+/* ====== Win95 Fenster ====== */
+.win95-window {
+  font-family: 'W95FA', monospace !important;
+  letter-spacing: 0.5px;
+  background:#c0c0c0;
+  border:2px solid #fff;
+  box-shadow:inset -2px -2px 0 #808080,inset 2px 2px 0 #dfdfdf,0 0 0 1px black;
+  width:55vw;
+  max-width:600px;
+  display:none;
+  flex-direction:column;
+  position: fixed;
+  z-index: 100;
+}
+
+.win95-window.active {
+  display: flex;
+  animation: popIn 0.25s ease forwards;
+}
+
+.win95-window .titlebar {
+  background:linear-gradient(to bottom,#000080,#000060);
+  color:white;
+  font-weight:bold;
+  padding:4px 8px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-family:'W95FA', monospace;
+  font-size:14px;
+  cursor: move;
+  user-select: none;
+}
+
+.win95-window .titlebar.inactive {
+  background:linear-gradient(to bottom,#808080,#606060);
+}
+
+.win95-window .titlebar .close-btn {
+  font-weight:bold;
+  padding:0 6px;
+  border:1px solid #fff;
+  background:#c0c0c0;
+  color:black;
+  box-shadow:inset -1px -1px 0 #808080,inset 1px 1px 0 #dfdfdf;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.win95-window .titlebar .close-btn:hover {
+  background:#999;
+}
+
+.win95-window .content {
+  padding:6px;
+  background:#c0c0c0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.win95-window .content img {
+  max-width:95%;
+  max-height:75vh;
+  height:auto;
+  width:auto;
+  object-fit:contain;
+}
+
+/* ====== TXT Content ====== */
+.txt-content {
+  padding: 15px;
+  background: #fff;
+  color: #000;
+  font-family: 'W95FA', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  text-align: left;
+  max-height: 70vh;
+  overflow-y: auto;
+  border: 2px inset #808080;
+  margin: 8px;
+}
 
 /* ====== Counter Fenster ====== */
-.counter-content { padding:20px; background:#c0c0c0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
-.counter-bar { width:80%; height:25px; border:2px inset #808080; background:#dfdfdf; position:relative; overflow:hidden; margin-top:10px;}
-.counter-fill { position:absolute; top:0; left:0; height:100%; width:0%; background: repeating-linear-gradient(-45deg,#00cc00,#00cc00 4px,#008800 4px,#008800 8px); transition: width 3s linear; }
-.counter-value { font-size:1.5rem; margin-top:12px; font-family:'W95FA', monospace; color:#000; }
+.counter-content {
+  padding:20px;
+  background:#c0c0c0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
 
-@keyframes popIn { 0% {transform:scale(0.9); opacity:0;} 60% {transform:scale(1.05); opacity:1;} 100% {transform:scale(1); opacity:1;} }
+.counter-bar {
+  width:80%;
+  height:25px;
+  border:2px inset #808080;
+  background:#dfdfdf;
+  position:relative;
+  overflow:hidden;
+  margin-top:10px;
+}
+
+.counter-fill {
+  position:absolute;
+  top:0;
+  left:0;
+  height:100%;
+  width:0%;
+  background: repeating-linear-gradient(-45deg,#00cc00,#00cc00 4px,#008800 4px,#008800 8px);
+  transition: width 3s linear;
+}
+
+.counter-value {
+  font-size:1.5rem;
+  margin-top:12px;
+  font-family:'W95FA', monospace;
+  color:#000;
+}
+
+@keyframes popIn {
+  0% {transform:scale(0.9); opacity:0;}
+  60% {transform:scale(1.05); opacity:1;}
+  100% {transform:scale(1); opacity:1;}
+}
 
 /* ====== Popup-Größe für verstecktes Bild ===== */
-#popup-hidden .win95-window {
-  width: 60vw;        /* Desktop Breite */
-  max-width: 700px;   /* Desktop Maximalbreite */
+#popup-hidden {
+  width: 60vw;
+  max-width: 700px;
 }
 
 /* ====== Mobile Anpassungen ====== */
@@ -148,20 +260,35 @@ span.blink-dot {
   .footer{ font-size:var(--footer-fontsize-mobile); bottom:var(--footer-bottom-mobile); text-align:center; padding:8px 10px; }
   .win95-window{ width:90vw; max-width:none; }
   .win95-window .content img{ max-width:90%; max-height:60vh; }
+  .win95-window .titlebar { cursor: default; }
 
   /* Mobile Desktop Icons */
   .desktop-icon.icon1 { top:var(--desktopicon1-top-mobile); left:var(--desktopicon1-left-mobile); width:var(--desktopicon1-size-mobile); height:var(--desktopicon1-size-mobile); }
   .desktop-icon.icon2 { top:var(--desktopicon2-top-mobile); left:var(--desktopicon2-left-mobile); width:var(--desktopicon2-size-mobile); height:var(--desktopicon2-size-mobile); }
   .desktop-icon.icon-hidden { top:var(--desktopicon-hidden-top-mobile); left:var(--desktopicon-hidden-left-mobile); }
+  .desktop-icon.icon-txt { top:var(--desktopicon-txt-top-mobile); left:var(--desktopicon-txt-left-mobile); }
 
   /* Mobile Popup Größe verstecktes Bild */
-  #popup-hidden .win95-window {
-    width: 85vw;       /* Mobile Breite */
+  #popup-hidden {
+    width: 85vw;
     max-width: none;
   }
-  #popup-hidden .win95-window .content img {
+  #popup-hidden .content img {
     max-width: 85%;
     max-height: 50vh;
+  }
+
+  /* Mobile TXT Popup */
+  .txt-content {
+    font-size: 11px;
+    max-height: 60vh;
+  }
+
+  /* Mobile zentrierte Fenster */
+  .win95-window.active {
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%);
   }
 }
 </style>
@@ -178,54 +305,84 @@ span.blink-dot {
 <h1 class="typewriter" id="typewriter"></h1>
 
 <!-- Desktop Icons -->
-<div class="desktop-icon icon1">
-  <a href="#popup"><img class="icon" src="assets/Floppy.png" alt="Floppy"><div class="label">starkbier.gif</div></a>
+<div class="desktop-icon icon1" data-window="popup">
+  <img class="icon" src="assets/Floppy.png" alt="Floppy">
+  <div class="label">starkbier.gif</div>
 </div>
-<div class="desktop-icon icon2">
-  <a href="#popup-counter"><img class="icon" src="assets/fire_alpha.png" alt="Folder"><div class="label">Kippenpause.exe</div></a>
+<div class="desktop-icon icon2" data-window="popup-counter">
+  <img class="icon" src="assets/fire_alpha.png" alt="Folder">
+  <div class="label">Kippenpause.exe</div>
 </div>
-<div class="desktop-icon icon-hidden">
-  <a href="#popup-hidden"><img class="icon" src="assets/hidden_icon.png" alt="Verstecktes Bild"><div class="label">SDA</div></a>
+<div class="desktop-icon icon-hidden" data-window="popup-hidden">
+  <img class="icon" src="assets/hidden_icon.png" alt="Verstecktes Bild">
+  <div class="label">SDA</div>
+</div>
+<div class="desktop-icon icon-txt" data-window="popup-txt">
+  <img class="icon" src="assets/txt_icon.png" alt="PDSW Text">
+  <div class="label">PDSW.txt</div>
 </div>
 
 <!-- GIF Popup -->
-<div id="popup">
-  <div class="win95-window">
-    <div class="titlebar"><span>starkbier.gif</span><a href="#">×</a></div>
-    <div class="content"><img src="assets/Starkbier.gif" alt="Starkbier"></div>
+<div id="popup" class="win95-window">
+  <div class="titlebar">
+    <span>starkbier.gif</span>
+    <span class="close-btn">×</span>
+  </div>
+  <div class="content">
+    <img src="assets/Starkbier.gif" alt="Starkbier">
   </div>
 </div>
 
 <!-- Counter Popup -->
-<div id="popup-counter">
-  <div class="win95-window">
-    <div class="titlebar"><span>Zigaretten.exe</span><a href="#">×</a></div>
-    <div class="counter-content">
-      <div class="counter-bar"><div class="counter-fill" id="fill"></div></div>
-      <div class="counter-value" id="count">0</div>
-    </div>
+<div id="popup-counter" class="win95-window">
+  <div class="titlebar">
+    <span>Zigaretten.exe</span>
+    <span class="close-btn">×</span>
+  </div>
+  <div class="counter-content">
+    <div class="counter-bar"><div class="counter-fill" id="fill"></div></div>
+    <div class="counter-value" id="count">0</div>
   </div>
 </div>
 
 <!-- SNIPPET Popup -->
-<div id="popup-snippet">
-  <div class="win95-window">
-    <div class="titlebar"><span>PDSW_SNIPPET.mp3</span><a href="#">×</a></div>
-    <div class="content">
-      <audio controls style="width:100%">
-        <source src="assets/pdsw_snippet.mp3" type="audio/mpeg">
-      </audio>
-    </div>
+<div id="popup-snippet" class="win95-window">
+  <div class="titlebar">
+    <span>PDSW_SNIPPET.mp3</span>
+    <span class="close-btn">×</span>
+  </div>
+  <div class="content">
+    <audio controls style="width:100%">
+      <source src="assets/pdsw_snippet.mp3" type="audio/mpeg">
+    </audio>
   </div>
 </div>
 
 <!-- Verstecktes Bild Popup -->
-<div id="popup-hidden">
-  <div class="win95-window">
-    <div class="titlebar"><span>SDA</span><a href="#">×</a></div>
-    <div class="content">
-      <img src="assets/washastnfuerndreher.jpg" alt="Verstecktes Bild">
-    </div>
+<div id="popup-hidden" class="win95-window">
+  <div class="titlebar">
+    <span>SDA</span>
+    <span class="close-btn">×</span>
+  </div>
+  <div class="content">
+    <img src="assets/washastnfuerndreher.jpg" alt="Verstecktes Bild">
+  </div>
+</div>
+
+<!-- TXT Popup -->
+<div id="popup-txt" class="win95-window">
+  <div class="titlebar">
+    <span>PDSW.txt - Notepad</span>
+    <span class="close-btn">×</span>
+  </div>
+  <div class="content">
+    <div class="txt-content">PDSW
+Passiert das schon wieder das zweite Mal in unter ner Woche ich glaube ich habe Fieber
+sitze bei Bro in der booth und er macht einen Beat an ich bleib ein krieger schreibe ein Text mit Kopf durch die Wand als wäre ich Zinédine Zidane
+Gib dir den shit wie er schiebt man Jeden Tag neu ich glaube ich könnte mich jedesmal aufs Neue wieder verlieben
+ja
+Und auch wenn wir einhundert machen glaub mir kann sein das wir am Ende doch noch verlieren
+Gib mir die garo ich zieh dran Gib mir die garo ich zieh dran.</div>
   </div>
 </div>
 
@@ -239,7 +396,164 @@ span.blink-dot {
 </div>
 
 <script>
-// SDA Typewriter
+// ====== FENSTER MANAGEMENT ======
+let currentZIndex = 100;
+const windows = {};
+
+// Initialisiere alle Fenster
+document.querySelectorAll('.win95-window').forEach(win => {
+  windows[win.id] = {
+    element: win,
+    isOpen: false
+  };
+});
+
+// Desktop Icons Click Handler
+document.querySelectorAll('.desktop-icon').forEach(icon => {
+  icon.addEventListener('click', () => {
+    const windowId = icon.getAttribute('data-window');
+    openWindow(windowId);
+  });
+});
+
+// Fenster öffnen
+function openWindow(windowId) {
+  const win = windows[windowId];
+  if (!win) return;
+
+  if (!win.isOpen) {
+    win.element.classList.add('active');
+    win.isOpen = true;
+
+    // Zentriere Fenster beim ersten Öffnen (nur Desktop)
+    if (window.innerWidth > 768 && !win.element.style.left) {
+      const rect = win.element.getBoundingClientRect();
+      win.element.style.left = (window.innerWidth - rect.width) / 2 + 'px';
+      win.element.style.top = (window.innerHeight - rect.height) / 2 + 'px';
+    }
+
+    // Spezial: Counter starten
+    if (windowId === 'popup-counter') {
+      updateCounter();
+    }
+  }
+
+  bringToFront(win.element);
+}
+
+// Fenster schließen
+function closeWindow(windowElement) {
+  const windowId = windowElement.id;
+  const win = windows[windowId];
+  if (!win) return;
+
+  win.element.classList.remove('active');
+  win.isOpen = false;
+
+  // Audio stoppen falls snippet
+  if (windowId === 'popup-snippet') {
+    const audio = windowElement.querySelector('audio');
+    if (audio) {
+      audio.pause();
+      audio.currentTime = 0;
+    }
+  }
+}
+
+// Fenster nach vorne bringen
+function bringToFront(windowElement) {
+  currentZIndex++;
+  windowElement.style.zIndex = currentZIndex;
+
+  // Alle Titelbars auf inaktiv setzen
+  document.querySelectorAll('.win95-window .titlebar').forEach(tb => {
+    tb.classList.add('inactive');
+  });
+
+  // Aktive Titlebar markieren
+  const titlebar = windowElement.querySelector('.titlebar');
+  if (titlebar) {
+    titlebar.classList.remove('inactive');
+  }
+}
+
+// Close Button Handler
+document.querySelectorAll('.close-btn').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const windowElement = btn.closest('.win95-window');
+    closeWindow(windowElement);
+  });
+});
+
+// Fenster anklicken bringt es nach vorne
+document.querySelectorAll('.win95-window').forEach(win => {
+  win.addEventListener('mousedown', () => {
+    bringToFront(win);
+  });
+});
+
+// ====== DRAG & DROP (NUR DESKTOP) ======
+if (window.innerWidth > 768) {
+  let draggedWindow = null;
+  let offsetX = 0;
+  let offsetY = 0;
+
+  document.querySelectorAll('.win95-window .titlebar').forEach(titlebar => {
+    titlebar.addEventListener('mousedown', (e) => {
+      // Nicht bei Close-Button
+      if (e.target.classList.contains('close-btn')) return;
+
+      draggedWindow = titlebar.closest('.win95-window');
+      const rect = draggedWindow.getBoundingClientRect();
+      offsetX = e.clientX - rect.left;
+      offsetY = e.clientY - rect.top;
+
+      e.preventDefault();
+    });
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if (!draggedWindow) return;
+
+    let newX = e.clientX - offsetX;
+    let newY = e.clientY - offsetY;
+
+    // Grenzen setzen
+    const maxX = window.innerWidth - draggedWindow.offsetWidth;
+    const maxY = window.innerHeight - draggedWindow.offsetHeight;
+
+    newX = Math.max(0, Math.min(newX, maxX));
+    newY = Math.max(0, Math.min(newY, maxY));
+
+    draggedWindow.style.left = newX + 'px';
+    draggedWindow.style.top = newY + 'px';
+  });
+
+  document.addEventListener('mouseup', () => {
+    draggedWindow = null;
+  });
+}
+
+// ====== HASH SUPPORT FÜR DIREKTLINKS ======
+function handleHash() {
+  const hash = location.hash.substring(1);
+  
+  if (hash === 'pdswsnippet') {
+    openWindow('popup-snippet');
+  } else if (hash) {
+    openWindow(hash);
+  }
+}
+
+// Hash beim Laden prüfen
+if (location.hash) {
+  setTimeout(handleHash, 100);
+}
+
+window.addEventListener('hashchange', handleHash);
+
+// ====== SDA TYPEWRITER ======
 const typewriter = document.getElementById('typewriter');
 function randDelay(min,max){ return Math.floor(Math.random()*(max-min))+min; }
 async function typeSequence(){
@@ -268,7 +582,7 @@ async function typeSequence(){
 }
 typeSequence();
 
-// Zigaretten Counter
+// ====== ZIGARETTEN COUNTER ======
 function updateCounter(){
   const startDate=new Date("2025-10-27");
   const today=new Date();
@@ -284,7 +598,7 @@ function updateCounter(){
 
   let start=0;
   const duration=3000;
-  const stepTime=25; 
+  const stepTime=25;
   const steps=Math.ceil(duration/stepTime);
   const increment=total/steps;
   const interval=setInterval(()=>{
@@ -293,23 +607,6 @@ function updateCounter(){
     count.textContent=Math.floor(start)+' Zigaretten';
   },stepTime);
 }
-
-document.querySelectorAll('a[href="#popup-counter"]').forEach(el=>{
-  el.addEventListener('click',updateCounter);
-});
-
-// ==== SNIPPET Hash Check ====
-if(location.hash === '#pdswsnippet'){
-  location.hash = '#popup-snippet';
-}
-// ==== SNIPPET STOPPEN BEIM SCHLIESSEN ====
-const snippetAudio = document.querySelector('#popup-snippet audio');
-window.addEventListener('hashchange', () => {
-  if (location.hash !== '#popup-snippet' && snippetAudio) {
-    snippetAudio.pause();
-    snippetAudio.currentTime = 0;
-  }
-});
 </script>
 
 </body>
