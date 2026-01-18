@@ -44,7 +44,7 @@
   --desktopicon2-size-mobile: 50px;
   --desktopicon-hidden-top-mobile: 65%;
   --desktopicon-hidden-left-mobile: 25%;
-  --desktopicon-txt-top-mobile: 35%;
+  --desktopicon-txt-top-mobile: 25%;
   --desktopicon-txt-left-mobile: 75%;
 }
 
@@ -289,9 +289,15 @@ span.blink-dot {
   /* Mobile zentrierte Fenster */
   .win95-window.active {
     left: 5vw !important;
-    top: 50% !important;
-    transform: translateY(-50%);
+    top: 20vh !important;
+    transform: none;
     width: 90vw;
+    max-height: 70vh;
+  }
+
+  .win95-window .content {
+    max-height: 60vh;
+    overflow-y: auto;
   }
 }
 </style>
