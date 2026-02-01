@@ -1,1 +1,831 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SDA Desktop</title>
 
+<!-- Lokale Win95 Schrift -->
+<style>
+@font-face {
+  font-family: 'W95FA';
+  src: url('assets/fonts/w95fa.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+</style>
+
+<style>
+:root {
+  /* Logos */
+  --senorsonate-size: 7.5;
+  --senorsonate-left: 40;
+  --senorsonate-bottom: 2;
+  --meyks-size: 5;
+  --meyks-left: 50;
+  --meyks-bottom: 5;
+  --hansgpunkt-size: 12;
+  --hansgpunkt-left: 54;
+  --hansgpunkt-bottom: 4;
+
+  /* Footer */
+  --footer-fontsize-desktop: 10px;
+  --footer-fontsize-mobile: 8px;
+  --footer-bottom-mobile: 0.25vh;
+
+  /* Mobile Desktop Icons */
+  --desktopicon1-top-mobile: 20%;
+  --desktopicon1-left-mobile: 30%;
+  --desktopicon1-size-mobile: 50px;
+  --desktopicon2-top-mobile: 45%;
+  --desktopicon2-left-mobile: 65%;
+  --desktopicon2-size-mobile: 50px;
+  --desktopicon-hidden-top-mobile: 65%;
+  --desktopicon-hidden-left-mobile: 25%;
+  --desktopicon-txt-top-mobile: 25%;
+  --desktopicon-txt-left-mobile: 75%;
+}
+
+/* ====== Grundlayout ====== */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #c0c0c0;
+  font-family: 'W95FA', monospace;
+  overflow-x: hidden;
+  position: relative;
+  background-image:
+    linear-gradient(to right, rgba(60,40,10,0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(60,40,10,0.1) 1px, transparent 1px);
+  background-size: 14px 14px;
+  color: #2b1d0e;
+}
+
+body.info-active {
+  overflow-y: auto;
+  height: auto;
+  min-height: 100vh;
+}
+
+/* ====== Logos ====== */
+.logo { 
+  position: absolute;
+  z-index: 5; 
+  transition: transform 0.25s ease, filter 0.25s ease; 
+}
+.logo img:hover { transform: scale(1.08); filter: brightness(1.15); }
+.logo.SenorSonate { left: calc(var(--senorsonate-left)*1%); bottom: calc(var(--senorsonate-bottom)*1vh);}
+.logo.SenorSonate img { width: calc(var(--senorsonate-size)*1vw); height:auto; }
+.logo.meyks { left: calc(var(--meyks-left)*1%); bottom: calc(var(--meyks-bottom)*1vh);}
+.logo.meyks img { width: calc(var(--meyks-size)*1vw); height:auto; }
+.logo.hansgpunkt { left: calc(var(--hansgpunkt-left)*1%); bottom: calc(var(--hansgpunkt-bottom)*1vh);}
+.logo.hansgpunkt img { width: calc(var(--hansgpunkt-size)*1vw); height:auto; }
+
+/* Logos fix nur auf Desktop-View */
+body:not(.info-active) .logo {
+  position: fixed;
+}
+
+/* ====== Footer ====== */
+.footer {
+  position: relative;
+  width: 100%;
+  background: rgba(192,192,192,0.15);
+  text-align: center;
+  padding: 60px 15px 6px;
+  font-size: var(--footer-fontsize-desktop);
+  color: #888;
+  z-index: 20;
+  line-height: 1.4;
+  margin-top: 40px;
+}
+
+/* Footer fix nur wenn Desktop-View aktiv ist */
+body:not(.info-active) .footer {
+  position: fixed;
+  bottom: 0;
+  margin-top: 0;
+  padding: 6px 15px;
+}
+
+.footer a { color:#888; text-decoration: underline; }
+.footer a:hover { color:#aaa; }
+
+/* ====== Typewriter ====== */
+.typewriter { position: fixed; top:10px; left:30px; font-size:2rem; white-space:nowrap; z-index:10; }
+
+/* ====== Pixeliger blinkender Win95-Punkt ===== */
+span.blink-dot {
+  display: inline-block;
+  width: 8px;
+  height: 14px;
+  background-color: #000;
+  vertical-align: middle;
+  margin-left: 2px;
+  image-rendering: pixelated;
+  animation: blinkPixel 1s steps(1) infinite;
+}
+@keyframes blinkPixel { 0%,50%,100% { opacity:1; } 25%,75% { opacity:0; } }
+
+/* ====== Desktop Icons ====== */
+.desktop-icon { position:absolute; display:flex; flex-direction:column; align-items:center; transform:translate(-50%,-50%); cursor: pointer; }
+.desktop-icon img.icon { width:48px; height:48px; cursor:pointer; border:2px solid #fff; background:#c0c0c0; box-shadow:-2px -2px 0 #808080,2px 2px 0 #dfdfdf; }
+.desktop-icon img.icon:hover { transform:scale(1.1); box-shadow:0 0 6px rgba(255,255,255,0.6); }
+.label { margin-top:8px; font-size:14px; text-shadow:1px 1px 0 rgba(255,255,255,0.8); color: #000000; }
+.desktop-icon.icon1 { top:50%; left:45%; }
+.desktop-icon.icon2 { top:65%; left:55%; }
+.desktop-icon.icon-hidden { top:55%; left:60%; }
+.desktop-icon.icon-txt { top:50%; left:70%; }
+
+/* ====== Win95 Fenster ====== */
+.win95-window {
+  font-family: 'W95FA', monospace !important;
+  letter-spacing: 0.5px;
+  background:#c0c0c0;
+  border:2px solid #fff;
+  box-shadow:inset -2px -2px 0 #808080,inset 2px 2px 0 #dfdfdf,0 0 0 1px black;
+  width:55vw;
+  max-width:600px;
+  display:none;
+  flex-direction:column;
+  position: fixed;
+  z-index: 100;
+}
+
+.win95-window.active {
+  display: flex;
+  animation: popIn 0.25s ease forwards;
+}
+
+.win95-window .titlebar {
+  background:linear-gradient(to bottom,#000080,#000060);
+  color:white;
+  font-weight:bold;
+  padding:4px 8px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-family:'W95FA', monospace;
+  font-size:14px;
+  cursor: move;
+  user-select: none;
+}
+
+.win95-window .titlebar.inactive {
+  background:linear-gradient(to bottom,#808080,#606060);
+}
+
+.win95-window .titlebar .close-btn {
+  font-weight:bold;
+  padding:0 6px;
+  border:1px solid #fff;
+  background:#c0c0c0;
+  color:black;
+  box-shadow:inset -1px -1px 0 #808080,inset 1px 1px 0 #dfdfdf;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.win95-window .titlebar .close-btn:hover {
+  background:#999;
+}
+
+.win95-window .content {
+  padding:6px;
+  background:#c0c0c0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.win95-window .content img {
+  max-width:95%;
+  max-height:75vh;
+  height:auto;
+  width:auto;
+  object-fit:contain;
+}
+
+/* ====== TXT Content ====== */
+.txt-content {
+  padding: 15px;
+  background: #fff;
+  color: #000;
+  font-family: 'W95FA', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  text-align: left;
+  max-height: 70vh;
+  overflow-y: auto;
+  border: 2px inset #808080;
+  margin: 8px;
+}
+
+/* ====== Counter Fenster ====== */
+.counter-content {
+  padding:20px;
+  background:#c0c0c0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+
+.counter-bar {
+  width:80%;
+  height:25px;
+  border:2px inset #808080;
+  background:#dfdfdf;
+  position:relative;
+  overflow:hidden;
+  margin-top:10px;
+}
+
+.counter-fill {
+  position:absolute;
+  top:0;
+  left:0;
+  height:100%;
+  width:0%;
+  background: repeating-linear-gradient(-45deg,#00cc00,#00cc00 4px,#008800 4px,#008800 8px);
+  transition: width 3s linear;
+}
+
+.counter-value {
+  font-size:1.5rem;
+  margin-top:12px;
+  font-family:'W95FA', monospace;
+  color:#000;
+}
+
+@keyframes popIn {
+  0% {transform:scale(0.9); opacity:0;}
+  60% {transform:scale(1.05); opacity:1;}
+  100% {transform:scale(1); opacity:1;}
+}
+
+/* ====== Popup-Größe für verstecktes Bild ===== */
+#popup-hidden {
+  width: 60vw;
+  max-width: 700px;
+}
+
+/* ====== Info Page ====== */
+#info-page {
+  display: none;
+  max-width: 900px;
+  margin: 80px auto 40px;
+  padding: 40px;
+  background: rgba(192, 192, 192, 0.95);
+  border: 2px solid #fff;
+  box-shadow: inset -2px -2px 0 #808080, inset 2px 2px 0 #dfdfdf, 0 0 0 1px black;
+  min-height: calc(100vh - 200px);
+}
+
+#info-page.active {
+  display: block;
+}
+
+.info-content h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: #000080;
+}
+
+.info-content h2 {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  color: #666;
+}
+
+.info-content p {
+  line-height: 1.8;
+  margin-bottom: 20px;
+  text-align: justify;
+}
+
+.info-images {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin: 30px 0;
+}
+
+.info-images img {
+  width: 100%;
+  height: auto;
+  border: 2px solid #000;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.3);
+}
+
+.info-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+
+.win95-btn {
+  padding: 10px 30px;
+  font-family: 'W95FA', monospace;
+  font-size: 16px;
+  font-weight: bold;
+  background: #c0c0c0;
+  border: 2px solid #fff;
+  box-shadow: inset -2px -2px 0 #808080, inset 2px 2px 0 #dfdfdf, 0 0 0 1px black;
+  cursor: pointer;
+  text-decoration: none;
+  color: #000;
+  display: inline-block;
+}
+
+.win95-btn:hover {
+  background: #dfdfdf;
+}
+
+.win95-btn:active {
+  box-shadow: inset 2px 2px 0 #808080, inset -2px -2px 0 #dfdfdf;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 20px;
+  padding: 8px 20px;
+  font-family: 'W95FA', monospace;
+  font-size: 14px;
+  background: #c0c0c0;
+  border: 2px solid #fff;
+  box-shadow: inset -2px -2px 0 #808080, inset 2px 2px 0 #dfdfdf;
+  text-decoration: none;
+  color: #000;
+}
+
+.back-link:hover {
+  background: #dfdfdf;
+}
+
+/* ====== Mobile Anpassungen ====== */
+@media(max-width:768px){
+  .typewriter { font-size:1.6rem; left:10px; top:5px; }
+  :root{
+    --senorsonate-size:20; --senorsonate-left:15; --senorsonate-bottom:6;
+    --meyks-size:12; --meyks-left:48; --meyks-bottom:4;
+    --hansgpunkt-size:29; --hansgpunkt-left:64; --hansgpunkt-bottom:3;
+  }
+  .footer{ font-size:var(--footer-fontsize-mobile); bottom:var(--footer-bottom-mobile); text-align:center; padding:8px 10px; }
+  .win95-window{ width:90vw; max-width:none; }
+  .win95-window .content img{ max-width:90%; max-height:60vh; }
+  .win95-window .titlebar { cursor: default; }
+
+  /* Mobile Desktop Icons */
+  .desktop-icon.icon1 { top:var(--desktopicon1-top-mobile); left:var(--desktopicon1-left-mobile); width:var(--desktopicon1-size-mobile); height:var(--desktopicon1-size-mobile); }
+  .desktop-icon.icon2 { top:var(--desktopicon2-top-mobile); left:var(--desktopicon2-left-mobile); width:var(--desktopicon2-size-mobile); height:var(--desktopicon2-size-mobile); }
+  .desktop-icon.icon-hidden { top:var(--desktopicon-hidden-top-mobile); left:var(--desktopicon-hidden-left-mobile); }
+  .desktop-icon.icon-txt { top:var(--desktopicon-txt-top-mobile); left:var(--desktopicon-txt-left-mobile); }
+
+  /* Mobile Popup Größe verstecktes Bild */
+  #popup-hidden {
+    width: 85vw;
+    max-width: none;
+  }
+  #popup-hidden .content img {
+    max-width: 85%;
+    max-height: 50vh;
+  }
+
+  /* Mobile TXT Popup */
+  .txt-content {
+    font-size: 11px;
+    max-height: 60vh;
+  }
+
+  /* Mobile zentrierte Fenster */
+  .win95-window.active {
+    left: 5vw !important;
+    top: 20vh !important;
+    transform: none;
+    width: 90vw;
+    max-height: 70vh;
+  }
+
+  .win95-window .content {
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+
+  /* Info Page Mobile */
+  #info-page {
+    margin: 60px 20px 40px;
+    padding: 20px;
+    min-height: calc(100vh - 200px);
+  }
+
+  .info-content h1 {
+    font-size: 1.8rem;
+  }
+
+  .info-images {
+    grid-template-columns: 1fr;
+  }
+
+  .info-buttons {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .win95-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Logos -->
+<div class="logo SenorSonate"><a href="https://www.instagram.com/enoronate/" target="_blank"><img src="assets/SenorLogotransparent.png" alt="SenorSonate Logo"></a></div>
+<div class="logo meyks"><a href="https://www.instagram.com/prod.meyks/" target="_blank"><img src="assets/meyksnew.png" alt="Meyks Logo"></a></div>
+<div class="logo hansgpunkt"><a href="https://www.instagram.com/hanzgpunkt/" target="_blank"><img src="assets/logo.gif" alt="Hansgpunkt Logo"></a></div>
+
+<!-- SDA Typewriter -->
+<h1 class="typewriter" id="typewriter"></h1>
+
+<!-- Desktop View -->
+<div id="desktop-view">
+  <!-- Desktop Icons -->
+  <div class="desktop-icon icon1" data-window="popup">
+    <img class="icon" src="assets/Floppy.png" alt="Floppy">
+    <div class="label">starkbier.gif</div>
+  </div>
+  <div class="desktop-icon icon2" data-window="popup-counter">
+    <img class="icon" src="assets/fire_alpha.png" alt="Folder">
+    <div class="label">Kippenpause.exe</div>
+  </div>
+  <div class="desktop-icon icon-hidden" data-window="popup-hidden">
+    <img class="icon" src="assets/hidden_icon.png" alt="Verstecktes Bild">
+    <div class="label">SDA</div>
+  </div>
+  <div class="desktop-icon icon-txt" data-window="popup-txt">
+    <img class="icon" src="assets/txt_icon.png" alt="PDSW Text">
+    <div class="label">PDSW.txt</div>
+  </div>
+</div>
+
+<!-- Info Page -->
+<div id="info-page">
+  <a href="#" class="back-link">← Zurück zum Desktop</a>
+  <div class="info-content">
+    <h1>SDA</h1>
+    <h2>28.02.2026 - 19:00</h2>
+    
+    <p>Das KAFA KOLLEKTIV lädt zum Release-Konzert des Debütalbums „SDA" von Señor Sonate und Meyks ein.</p>
+    
+    <p>Das Publikum erwartet eine musikalische Reise durch die Lebensrealität der Künstler und den Entstehungsprozess des Albums.</p>
+    
+    <div class="info-images">
+      <img src="assets/Pic1.jpeg" alt="SDA Bild 1">
+      <img src="assets/Pic2.jpeg" alt="SDA Bild 2">
+      <img src="assets/Pic3.jpeg" alt="SDA Bild 3">
+    </div>
+    
+    <p><strong>Melancholischer Rap zwischen Lo-Fi und Trap: SDA.</strong></p>
+    
+    <p>Señor Sonate und Meyks sind ein Duo aus Vocalist und Produzent aus dem Ruhrgebiet. Gemeinsam mit ihrem langjährigen Freund und Videographen Hanzgpunkt bilden sie das KAFA KOLLEKTIV. Seit 2020 produzieren sie gemeinsam Musik – entstanden aus Freestyles und selbst gebastelten Beats, geprägt von gesellschaftskritischen und persönlichen Themen.</p>
+    
+    <p>Ihre Musik entsteht nach dem Motto „von Kollegen für Kollegen" komplett in Eigenregie: von der Produktion über Texten bis hin zu Mix & Mastering und Musikvideos.</p>
+    
+    <p>Über die Jahre entwickelten Señor Sonate und Meyks einen eigenständigen Sound, der unterschiedliche Einflüsse zulässt und tiefgründige Texte mit atmosphärischen Lo-Fi- und Trap-Elementen verbindet.</p>
+    
+    <p>Nach mehreren Single-Veröffentlichungen im Jahr 2025 erscheint am 27.02.2026 das Debütalbum der beiden Künstler mit dem Titel „SDA".</p>
+    
+    <p>Anlässlich der Veröffentlichung des Albums lädt das KAFA KOLLEKTIV am 28.02.2026 zu einem Release-Konzert ein, bei dem „SDA" erstmals live präsentiert wird. Dabei nimmt das Kollektiv das Publikum mit auf eine Reise durch ihre Lebensrealität und den Entstehungsprozess des Albums.</p>
+    
+    <div class="info-buttons">
+      <a href="https://zeitmaultheater.de/karten/#" target="_blank" class="win95-btn">🎫 TICKETS RESERVIEREN</a>
+      <a href="https://open.spotify.com/artist/0DszCFQ2nug8njFW165GE7?si=8-oS9oJCTr-HP_dIDSNN5g" target="_blank" class="win95-btn">🎵 AUF SPOTIFY HÖREN</a>
+    </div>
+  </div>
+</div>
+
+<!-- GIF Popup -->
+<div id="popup" class="win95-window">
+  <div class="titlebar">
+    <span>starkbier.gif</span>
+    <span class="close-btn">×</span>
+  </div>
+  <div class="content">
+    <img src="assets/Starkbier.gif" alt="Starkbier">
+  </div>
+</div>
+
+<!-- Counter Popup -->
+<div id="popup-counter" class="win95-window">
+  <div class="titlebar">
+    <span>Kippenpause.exe</span>
+    <span class="close-btn">×</span>
+  </div>
+  <div class="counter-content">
+    <div class="counter-bar"><div class="counter-fill" id="fill"></div></div>
+    <div class="counter-value" id="count">0</div>
+  </div>
+</div>
+
+<!-- SNIPPET Popup -->
+<div id="popup-snippet" class="win95-window">
+  <div class="titlebar">
+    <span>PDSW_SNIPPET.mp3</span>
+    <span class="close-btn">×</span>
+  </div>
+  <div class="content">
+    <audio controls style="width:100%">
+      <source src="assets/pdsw_snippet.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+</div>
+
+<!-- Verstecktes Bild Popup -->
+<div id="popup-hidden" class="win95-window">
+  <div class="titlebar">
+    <span>SDA</span>
+    <span class="close-btn">×</span>
+  </div>
+  <div class="content">
+    <img src="assets/washastnfuerndreher.jpg" alt="Verstecktes Bild">
+  </div>
+</div>
+
+<!-- TXT Popup -->
+<div id="popup-txt" class="win95-window">
+  <div class="titlebar">
+    <span>PDSW.txt - Notepad</span>
+    <span class="close-btn">×</span>
+  </div>
+  <div class="content">
+    <div class="txt-content">PDSW
+Passiert das schon wieder 
+das zweite Mal in unter ner Woche ich glaube ich habe Fieber
+sitze bei Bro in der booth und er macht einen Beat an 
+ich bleib ein krieger 
+schreibe ein Text mit Kopf durch die Wand 
+als wäre ich Zinédine Zidane
+Gib dir den shit wie er schiebt man 
+Jeden Tag neu ich glaube ich könnte mich jedesmal aufs Neue wieder verlieben
+ja
+Und auch wenn wir einhundert machen 
+glaub mir kann sein das wir am Ende doch noch verlieren
+Gib mir die garo ich zieh dran 
+Gib mir die garo ich zieh dran.</div>
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <p>&copy; 2025 KAFFAKOILEKTIV |
+  <a href="https://www.instagram.com/hanzgpunkt/" target="_blank">Hansgpunkt</a>,
+  <a href="https://www.instagram.com/prod.meyks/" target="_blank">Meyks</a>,
+  <a href="https://www.instagram.com/enoronate/" target="_blank">SenorSonate</a> |
+  Keine Datenerhebung oder Weitergabe.</p>
+</div>
+
+<script>
+// ====== VIEW MANAGEMENT ======
+function updateView() {
+  const hash = location.hash.substring(1);
+  const desktopView = document.getElementById('desktop-view');
+  const infoPage = document.getElementById('info-page');
+  
+  if (hash === 'info') {
+    desktopView.style.display = 'none';
+    infoPage.classList.add('active');
+    document.body.classList.add('info-active');
+  } else {
+    desktopView.style.display = 'block';
+    infoPage.classList.remove('active');
+    document.body.classList.remove('info-active');
+  }
+}
+
+// Beim Laden und bei Hash-Änderung
+window.addEventListener('hashchange', updateView);
+updateView();
+
+// ====== FENSTER MANAGEMENT ======
+let currentZIndex = 100;
+const windows = {};
+
+// Initialisiere alle Fenster
+document.querySelectorAll('.win95-window').forEach(win => {
+  windows[win.id] = {
+    element: win,
+    isOpen: false
+  };
+});
+
+// Desktop Icons Click Handler
+document.querySelectorAll('.desktop-icon').forEach(icon => {
+  icon.addEventListener('click', () => {
+    const windowId = icon.getAttribute('data-window');
+    openWindow(windowId);
+  });
+});
+
+// Fenster öffnen
+function openWindow(windowId) {
+  const win = windows[windowId];
+  if (!win) return;
+
+  if (!win.isOpen) {
+    win.element.classList.add('active');
+    win.isOpen = true;
+
+    // Zentriere Fenster beim ersten Öffnen (nur Desktop)
+    if (window.innerWidth > 768 && !win.element.style.left) {
+      const rect = win.element.getBoundingClientRect();
+      win.element.style.left = (window.innerWidth - rect.width) / 2 + 'px';
+      win.element.style.top = (window.innerHeight - rect.height) / 2 + 'px';
+    }
+
+    // Spezial: Counter starten
+    if (windowId === 'popup-counter') {
+      updateCounter();
+    }
+  }
+
+  bringToFront(win.element);
+}
+
+// Fenster schließen
+function closeWindow(windowElement) {
+  const windowId = windowElement.id;
+  const win = windows[windowId];
+  if (!win) return;
+
+  win.element.classList.remove('active');
+  win.isOpen = false;
+
+  // Audio stoppen falls snippet
+  if (windowId === 'popup-snippet') {
+    const audio = windowElement.querySelector('audio');
+    if (audio) {
+      audio.pause();
+      audio.currentTime = 0;
+    }
+  }
+}
+
+// Fenster nach vorne bringen
+function bringToFront(windowElement) {
+  currentZIndex++;
+  windowElement.style.zIndex = currentZIndex;
+
+  // Alle Titelbars auf inaktiv setzen
+  document.querySelectorAll('.win95-window .titlebar').forEach(tb => {
+    tb.classList.add('inactive');
+  });
+
+  // Aktive Titlebar markieren
+  const titlebar = windowElement.querySelector('.titlebar');
+  if (titlebar) {
+    titlebar.classList.remove('inactive');
+  }
+}
+
+// Close Button Handler
+document.querySelectorAll('.close-btn').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const windowElement = btn.closest('.win95-window');
+    closeWindow(windowElement);
+  });
+});
+
+// Fenster anklicken bringt es nach vorne
+document.querySelectorAll('.win95-window').forEach(win => {
+  win.addEventListener('mousedown', () => {
+    bringToFront(win);
+  });
+});
+
+// ====== DRAG & DROP (NUR DESKTOP) ======
+if (window.innerWidth > 768) {
+  let draggedWindow = null;
+  let offsetX = 0;
+  let offsetY = 0;
+
+  document.querySelectorAll('.win95-window .titlebar').forEach(titlebar => {
+    titlebar.addEventListener('mousedown', (e) => {
+      // Nicht bei Close-Button
+      if (e.target.classList.contains('close-btn')) return;
+
+      draggedWindow = titlebar.closest('.win95-window');
+      const rect = draggedWindow.getBoundingClientRect();
+      offsetX = e.clientX - rect.left;
+      offsetY = e.clientY - rect.top;
+
+      e.preventDefault();
+    });
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if (!draggedWindow) return;
+
+    let newX = e.clientX - offsetX;
+    let newY = e.clientY - offsetY;
+
+    // Grenzen setzen
+    const maxX = window.innerWidth - draggedWindow.offsetWidth;
+    const maxY = window.innerHeight - draggedWindow.offsetHeight;
+
+    newX = Math.max(0, Math.min(newX, maxX));
+    newY = Math.max(0, Math.min(newY, maxY));
+
+    draggedWindow.style.left = newX + 'px';
+    draggedWindow.style.top = newY + 'px';
+  });
+
+  document.addEventListener('mouseup', () => {
+    draggedWindow = null;
+  });
+}
+
+// ====== HASH SUPPORT FÜR DIREKTLINKS ======
+function handleHash() {
+  const hash = location.hash.substring(1);
+  
+  if (hash === 'pdswsnippet') {
+    openWindow('popup-snippet');
+  } else if (hash && hash !== 'info') {
+    openWindow(hash);
+  }
+}
+
+// Hash beim Laden prüfen
+if (location.hash) {
+  setTimeout(handleHash, 100);
+}
+
+window.addEventListener('hashchange', handleHash);
+
+// ====== SDA TYPEWRITER ======
+const typewriter = document.getElementById('typewriter');
+function randDelay(min,max){ return Math.floor(Math.random()*(max-min))+min; }
+async function typeSequence(){
+  const seq=['S','D','A','•'];
+  for(let item of seq){
+    if(item.startsWith('deleteDots')){
+      let count=parseInt(item.replace('deleteDots',''));
+      for(let i=0;i<count;i++){
+        await new Promise(r=>setTimeout(r,randDelay(150,300)));
+        const dots=Array.from(typewriter.querySelectorAll('span:not(.blink-dot)'));
+        const dIndex=dots.findIndex(s=>s.textContent==='.');
+        if(dIndex>=0)dots[dIndex].remove();
+      }
+    } else {
+      await new Promise(r=>setTimeout(r,randDelay(200,500)));
+      const span=document.createElement('span');
+      if(item === '•') {
+        span.classList.add('blink-dot');
+        span.textContent = '';
+      } else {
+        span.textContent = item;
+      }
+      typewriter.appendChild(span);
+    }
+  }
+}
+typeSequence();
+
+// ====== ZIGARETTEN COUNTER ======
+function updateCounter(){
+  const startDate=new Date("2025-10-27");
+  const today=new Date();
+  const days=Math.floor((today-startDate)/(1000*60*60*24));
+  const total=706+days*30;
+  const fill=document.getElementById('fill');
+  const count=document.getElementById('count');
+  fill.style.width='0%';
+  count.textContent='0 Zigaretten';
+
+  fill.style.transition='width 3s linear';
+  requestAnimationFrame(()=>{ fill.style.width='100%'; });
+
+  let start=0;
+  const duration=3000;
+  const stepTime=25;
+  const steps=Math.ceil(duration/stepTime);
+  const increment=total/steps;
+  const interval=setInterval(()=>{
+    start+=increment;
+    if(start>=total){ start=total; clearInterval(interval); }
+    count.textContent=Math.floor(start)+' Zigaretten';
+  },stepTime);
+}
+</script>
+
+</body>
+</html>
