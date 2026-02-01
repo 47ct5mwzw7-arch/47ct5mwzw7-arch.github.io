@@ -466,7 +466,7 @@ span.blink-dot {
 <body>
 
 <!-- Logos -->
-<div class="logo SenorSonate"><a href="https://www.instagram.com/enoronate/" target="_blank"><img src="assets/Senorplatzhalter.png" alt="SenorSonate Logo"></a></div>
+<div class="logo SenorSonate"><a href="https://www.instagram.com/enoronate/" target="_blank"><img src="assets/SenorLogotransparent.png" alt="SenorSonate Logo"></a></div>
 <div class="logo meyks"><a href="https://www.instagram.com/prod.meyks/" target="_blank"><img src="assets/meyksnew.png" alt="Meyks Logo"></a></div>
 <div class="logo hansgpunkt"><a href="https://www.instagram.com/hanzgpunkt/" target="_blank"><img src="assets/logo.gif" alt="Hansgpunkt Logo"></a></div>
 
@@ -701,7 +701,7 @@ function bringToFront(windowElement) {
   currentZIndex++;
   windowElement.style.zIndex = currentZIndex;
 
-  // Alle Titelbars auf inaktiv setzen
+  // Alle Titlebars auf inaktiv setzen
   document.querySelectorAll('.win95-window .titlebar').forEach(tb => {
     tb.classList.add('inactive');
   });
@@ -744,6 +744,10 @@ if (window.innerWidth > 768) {
       const rect = draggedWindow.getBoundingClientRect();
       offsetX = e.clientX - rect.left;
       offsetY = e.clientY - rect.top;
+
+      e.preventDefault();
+    });
+  });
 
   document.addEventListener('mousemove', (e) => {
     if (!draggedWindow) return;
