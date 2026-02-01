@@ -115,11 +115,6 @@ body:not(.info-active) .footer {
 /* ====== Typewriter ====== */
 .typewriter { position: fixed; top:10px; left:30px; font-size:2rem; white-space:nowrap; z-index:10; }
 
-/* Typewriter relativ auf Info-Seite Desktop */
-body.info-active .typewriter {
-  position: fixed;
-}
-
 /* ====== Pixeliger blinkender Win95-Punkt ===== */
 span.blink-dot {
   display: inline-block;
@@ -376,9 +371,9 @@ span.blink-dot {
 /* ====== Mobile Anpassungen ====== */
 @media(max-width:768px){
   .typewriter { 
-    font-size:1.6rem; 
-    left:10px; 
-    top:5px;
+    font-size:1.6rem !important; 
+    left:10px !important; 
+    top:5px !important;
     position: fixed !important;
   }
   :root{
@@ -386,7 +381,12 @@ span.blink-dot {
     --meyks-size:12; --meyks-left:48; --meyks-bottom:4;
     --hansgpunkt-size:29; --hansgpunkt-left:64; --hansgpunkt-bottom:3;
   }
-  .footer{ font-size:var(--footer-fontsize-mobile); bottom:var(--footer-bottom-mobile); text-align:center; padding:8px 10px; }
+  .footer{ font-size:var(--footer-fontsize-mobile); text-align:center; padding:60px 10px 8px; }
+  
+  body:not(.info-active) .footer {
+    padding: 8px 10px;
+  }
+  
   .win95-window{ width:90vw; max-width:none; }
   .win95-window .content img{ max-width:90%; max-height:60vh; }
   .win95-window .titlebar { cursor: default; }
@@ -429,8 +429,8 @@ span.blink-dot {
 
   /* Info Page Mobile */
   #info-page {
-    margin: 60px 20px 40px;
-    padding: 20px;
+    margin: 60px 10px 20px;
+    padding: 20px 15px;
     min-height: calc(100vh - 200px);
   }
 
@@ -445,15 +445,19 @@ span.blink-dot {
   .info-buttons {
     flex-direction: column;
     gap: 15px;
+    padding: 0 5px;
   }
 
   .win95-btn {
     width: 100%;
+    max-width: 100%;
     text-align: center;
-    padding: 10px 15px;
-    font-size: 14px;
+    padding: 12px 10px;
+    font-size: 13px;
     white-space: normal;
-    line-height: 1.3;
+    line-height: 1.4;
+    box-sizing: border-box;
+    word-wrap: break-word;
   }
 }
 </style>
@@ -740,10 +744,6 @@ if (window.innerWidth > 768) {
       const rect = draggedWindow.getBoundingClientRect();
       offsetX = e.clientX - rect.left;
       offsetY = e.clientY - rect.top;
-
-      e.preventDefault();
-    });
-  });
 
   document.addEventListener('mousemove', (e) => {
     if (!draggedWindow) return;
