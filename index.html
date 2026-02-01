@@ -18,9 +18,9 @@
 <style>
 :root {
   /* Logos */
-  --senorsonate-size: 7.5;
+  --senorsonate-size: 8;
   --senorsonate-left: 40;
-  --senorsonate-bottom: 2;
+  --senorsonate-bottom: 8;
   --meyks-size: 5;
   --meyks-left: 50;
   --meyks-bottom: 5;
@@ -114,6 +114,11 @@ body:not(.info-active) .footer {
 
 /* ====== Typewriter ====== */
 .typewriter { position: fixed; top:10px; left:30px; font-size:2rem; white-space:nowrap; z-index:10; }
+
+/* Typewriter relativ auf Info-Seite Desktop */
+body.info-active .typewriter {
+  position: fixed;
+}
 
 /* ====== Pixeliger blinkender Win95-Punkt ===== */
 span.blink-dot {
@@ -370,9 +375,14 @@ span.blink-dot {
 
 /* ====== Mobile Anpassungen ====== */
 @media(max-width:768px){
-  .typewriter { font-size:1.6rem; left:10px; top:5px; }
+  .typewriter { 
+    font-size:1.6rem; 
+    left:10px; 
+    top:5px;
+    position: fixed !important;
+  }
   :root{
-    --senorsonate-size:18; --senorsonate-left:15; --senorsonate-bottom:2;
+    --senorsonate-size:20; --senorsonate-left:15; --senorsonate-bottom:6;
     --meyks-size:12; --meyks-left:48; --meyks-bottom:4;
     --hansgpunkt-size:29; --hansgpunkt-left:64; --hansgpunkt-bottom:3;
   }
@@ -440,6 +450,10 @@ span.blink-dot {
   .win95-btn {
     width: 100%;
     text-align: center;
+    padding: 10px 15px;
+    font-size: 14px;
+    white-space: normal;
+    line-height: 1.3;
   }
 }
 </style>
@@ -448,7 +462,7 @@ span.blink-dot {
 <body>
 
 <!-- Logos -->
-<div class="logo SenorSonate"><a href="https://www.instagram.com/enoronate/" target="_blank"><img src="assets/SenorLogotransparent.png" alt="SenorSonate Logo"></a></div>
+<div class="logo SenorSonate"><a href="https://www.instagram.com/enoronate/" target="_blank"><img src="assets/Senorplatzhalter.png" alt="SenorSonate Logo"></a></div>
 <div class="logo meyks"><a href="https://www.instagram.com/prod.meyks/" target="_blank"><img src="assets/meyksnew.png" alt="Meyks Logo"></a></div>
 <div class="logo hansgpunkt"><a href="https://www.instagram.com/hanzgpunkt/" target="_blank"><img src="assets/logo.gif" alt="Hansgpunkt Logo"></a></div>
 
