@@ -44,6 +44,8 @@
   --desktopicon-hidden-left-mobile: 25%;
   --desktopicon-txt-top-mobile: 25%;
   --desktopicon-txt-left-mobile: 75%;
+  --desktopicon-info-top-mobile: 80%;
+  --desktopicon-info-left-mobile: 50%;
 }
 
 /* ====== Grundlayout ====== */
@@ -130,6 +132,7 @@ span.blink-dot {
 
 /* ====== Desktop Icons ====== */
 .desktop-icon { position:absolute; display:flex; flex-direction:column; align-items:center; transform:translate(-50%,-50%); cursor: pointer; }
+.desktop-icon a { text-decoration:none; }
 .desktop-icon img.icon { width:48px; height:48px; cursor:pointer; border:2px solid #fff; background:#c0c0c0; box-shadow:-2px -2px 0 #808080,2px 2px 0 #dfdfdf; }
 .desktop-icon img.icon:hover { transform:scale(1.1); box-shadow:0 0 6px rgba(255,255,255,0.6); }
 .label { margin-top:8px; font-size:14px; text-shadow:1px 1px 0 rgba(255,255,255,0.8); color: #000000; }
@@ -137,6 +140,7 @@ span.blink-dot {
 .desktop-icon.icon2 { top:65%; left:55%; }
 .desktop-icon.icon-hidden { top:55%; left:60%; }
 .desktop-icon.icon-txt { top:50%; left:70%; }
+.desktop-icon.icon-info { top:40%; left:55%; }
 
 /* ====== Win95 Fenster ====== */
 .win95-window {
@@ -384,7 +388,7 @@ span.blink-dot {
     left: 10px !important;
   }
   :root{
-    --senorsonate-size:18; --senorsonate-left:15; --senorsonate-bottom:2.5;
+    --senorsonate-size:18; --senorsonate-left:15; --senorsonate-bottom:2,5;
     --meyks-size:12; --meyks-left:48; --meyks-bottom:4;
     --hansgpunkt-size:29; --hansgpunkt-left:64; --hansgpunkt-bottom:3;
   }
@@ -403,6 +407,7 @@ span.blink-dot {
   .desktop-icon.icon2 { top:var(--desktopicon2-top-mobile); left:var(--desktopicon2-left-mobile); width:var(--desktopicon2-size-mobile); height:var(--desktopicon2-size-mobile); }
   .desktop-icon.icon-hidden { top:var(--desktopicon-hidden-top-mobile); left:var(--desktopicon-hidden-left-mobile); }
   .desktop-icon.icon-txt { top:var(--desktopicon-txt-top-mobile); left:var(--desktopicon-txt-left-mobile); }
+  .desktop-icon.icon-info { top:var(--desktopicon-info-top-mobile); left:var(--desktopicon-info-left-mobile); }
 
   /* Mobile Popup Größe verstecktes Bild */
   #popup-hidden {
@@ -499,6 +504,12 @@ span.blink-dot {
     <img class="icon" src="assets/txt_icon.png" alt="PDSW Text">
     <div class="label">PDSW.txt</div>
   </div>
+  <div class="desktop-icon icon-info">
+    <a href="#info">
+      <img class="icon" src="assets/help_book_alpha.png" alt="Info">
+      <div class="label">whatthefuckissda</div>
+    </a>
+  </div>
 </div>
 
 <!-- Info Page -->
@@ -529,7 +540,9 @@ span.blink-dot {
     <p>Nach mehreren Single-Veröffentlichungen im Jahr 2025 erscheint am 27.02.2026 das Debütalbum der beiden Künstler mit dem Titel „SDA".</p>
     
     <p>Anlässlich der Veröffentlichung des Albums lädt das KAFA KOLLEKTIV am 28.02.2026 zu einem Release-Konzert ein, bei dem „SDA" erstmals live präsentiert wird. Dabei nimmt das Kollektiv das Publikum mit auf eine Reise durch ihre Lebensrealität und den Entstehungsprozess des Albums.</p>
-    
+
+    <p>Für die Tickets bitte unten auf den Button klicken und bei "Veranstaltung" SDA Releasekonzert eingeben.</p>
+
     <div class="info-buttons">
       <a href="https://zeitmaultheater.de/karten/#" target="_blank" class="win95-btn">🎫 TICKETS RESERVIEREN</a>
       <a href="https://open.spotify.com/artist/0DszCFQ2nug8njFW165GE7?si=8-oS9oJCTr-HP_dIDSNN5g" target="_blank" class="win95-btn">🎵 AUF SPOTIFY HÖREN</a>
