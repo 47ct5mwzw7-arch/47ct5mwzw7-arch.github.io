@@ -935,8 +935,23 @@ if (window.innerWidth <= 768) {
         // Wenn nicht gedragged wurde, normal öffnen
         if (!isDragging) {
           const windowId = icon.getAttribute('data-window');
+          const link = icon.querySelector('a');
+          
           if (windowId) {
+            // Popup öffnen
             openWindow(windowId);
+          } else if (link) {
+            // Link folgen (für Info und Trailer)
+            const href = link.getAttribute('href');
+            if (href) {
+              if (href.startsWith('#')) {
+                // Hash-Link (Info, Impressum)
+                window.location.hash = href;
+              } else {
+                // Externer Link (Trailer)
+                window.open(href, '_blank');
+              }
+            }
           }
         }
         
@@ -1029,6 +1044,3 @@ function updateCounter(){
   },stepTime);
 }
 </script>
-
-</body>
-</html>
