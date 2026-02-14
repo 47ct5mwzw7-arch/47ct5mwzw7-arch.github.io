@@ -49,7 +49,7 @@
   --desktopicon-txt-top-mobile: 25%;
   --desktopicon-txt-left-mobile: 75%;
   --desktopicon-info-top-mobile: 80%;
-  --desktopicon-info-left-mobile:60%;
+  --desktopicon-info-left-mobile: 60%;
   --desktopicon-trailer-top-mobile: 50%;
   --desktopicon-trailer-left-mobile: 40%;
 }
@@ -148,6 +148,12 @@ span.blink-dot {
 .desktop-icon.icon-txt { top:50%; left:70%; }
 .desktop-icon.icon-info { top:40%; left:55%; }
 .desktop-icon.icon-trailer { top:35%; left:65%; }
+
+/* Mobile: Icons werden draggable */
+.desktop-icon.dragging {
+  opacity: 0.7;
+  z-index: 1000;
+}
 
 /* ====== Win95 Fenster ====== */
 .win95-window {
@@ -579,22 +585,22 @@ span.blink-dot {
     <p><strong>Angaben gemäß § 5 TMG:</strong></p>
     
     <p>
-    Hans Göbel<br>
-    Hauptstraße 71<br>
-    58452, Witten
+    [Vorname Nachname]<br>
+    [Straße und Hausnummer]<br>
+    [PLZ, Ort]
     </p>
     
     <p><strong>Kontakt:</strong></p>
     
     <p>
-    E-Mail: kafakollektiv@gmail.com
+    E-Mail: [deine@email.de]
     </p>
     
     <p><strong>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:</strong></p>
     
     <p>
-    Hans Göbel<br>
-    Adresse wie oben
+    [Vorname Nachname]<br>
+    [Adresse wie oben]
     </p>
     
     <p><strong>Haftungsausschluss:</strong></p>
@@ -728,9 +734,14 @@ document.querySelectorAll('.win95-window').forEach(win => {
 
 // Desktop Icons Click Handler
 document.querySelectorAll('.desktop-icon').forEach(icon => {
-  icon.addEventListener('click', () => {
-    const windowId = icon.getAttribute('data-window');
-    openWindow(windowId);
+  icon.addEventListener('click', (e) => {
+    // Nur auf Desktop oder wenn nicht gerade gedragged wird
+    if (window.innerWidth > 768 || !icon.classList.contains('dragging')) {
+      const windowId = icon.getAttribute('data-window');
+      if (windowId) {
+        openWindow(windowId);
+      }
+    }
   });
 });
 
@@ -850,6 +861,98 @@ if (window.innerWidth > 768) {
 
   document.addEventListener('mouseup', () => {
     draggedWindow = null;
+  });
+}
+
+// ====== MOBILE ICON DRAG & DROP ======
+if (window.innerWidth <= 768) {
+  let draggedIcon = null;
+  let touchOffsetX = 0;
+  let touchOffsetY = 0;
+  let isDragging = false;
+  let startX = 0;
+  let startY = 0;
+
+  document.querySelectorAll('.desktop-icon').forEach(icon => {
+    // Touch Start
+    icon.addEventListener('touchstart', (e) => {
+      const touch = e.touches[0];
+      const rect = icon.getBoundingClientRect();
+      
+      startX = touch.clientX;
+      startY = touch.clientY;
+      
+      draggedIcon = icon;
+      touchOffsetX = touch.clientX - rect.left - rect.width / 2;
+      touchOffsetY = touch.clientY - rect.top - rect.height / 2;
+      
+      isDragging = false;
+      
+      e.preventDefault();
+    }, { passive: false });
+
+    // Touch Move
+    icon.addEventListener('touchmove', (e) => {
+      if (!draggedIcon) return;
+      
+      const touch = e.touches[0];
+      const moveX = Math.abs(touch.clientX - startX);
+      const moveY = Math.abs(touch.clientY - startY);
+      
+      // Nur als Drag erkennen wenn mehr als 10px bewegt
+      if (moveX > 10 || moveY > 10) {
+        isDragging = true;
+        draggedIcon.classList.add('dragging');
+      }
+      
+      if (isDragging) {
+        let newX = touch.clientX - touchOffsetX;
+        let newY = touch.clientY - touchOffsetY;
+        
+        // Grenzen setzen
+        const maxX = window.innerWidth;
+        const maxY = window.innerHeight;
+        
+        newX = Math.max(0, Math.min(newX, maxX));
+        newY = Math.max(0, Math.min(newY, maxY));
+        
+        // Position in Prozent umrechnen
+        const percentX = (newX / window.innerWidth) * 100;
+        const percentY = (newY / window.innerHeight) * 100;
+        
+        draggedIcon.style.left = percentX + '%';
+        draggedIcon.style.top = percentY + '%';
+        
+        e.preventDefault();
+      }
+    }, { passive: false });
+
+    // Touch End
+    icon.addEventListener('touchend', (e) => {
+      if (draggedIcon) {
+        draggedIcon.classList.remove('dragging');
+        
+        // Wenn nicht gedragged wurde, normal öffnen
+        if (!isDragging) {
+          const windowId = icon.getAttribute('data-window');
+          if (windowId) {
+            openWindow(windowId);
+          }
+        }
+        
+        draggedIcon = null;
+        isDragging = false;
+      }
+    });
+
+    // Touch Cancel
+    icon.addEventListener('touchcancel', (e) => {
+      if (draggedIcon) {
+        draggedIcon.classList.remove('dragging');
+        draggedIcon = null;
+        isDragging = false;
+      }
+    });
   });
 }
 
