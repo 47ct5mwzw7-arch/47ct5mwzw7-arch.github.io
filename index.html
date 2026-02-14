@@ -50,6 +50,8 @@
   --desktopicon-txt-left-mobile: 75%;
   --desktopicon-info-top-mobile: 80%;
   --desktopicon-info-left-mobile: 50%;
+  --desktopicon-trailer-top-mobile: 50%;
+  --desktopicon-trailer-left-mobile: 45%;
 }
 
 /* ====== Grundlayout ====== */
@@ -145,6 +147,7 @@ span.blink-dot {
 .desktop-icon.icon-hidden { top:55%; left:60%; }
 .desktop-icon.icon-txt { top:50%; left:70%; }
 .desktop-icon.icon-info { top:40%; left:55%; }
+.desktop-icon.icon-trailer { top:35%; left:65%; }
 
 /* ====== Win95 Fenster ====== */
 .win95-window {
@@ -412,6 +415,7 @@ span.blink-dot {
   .desktop-icon.icon-hidden { top:var(--desktopicon-hidden-top-mobile); left:var(--desktopicon-hidden-left-mobile); }
   .desktop-icon.icon-txt { top:var(--desktopicon-txt-top-mobile); left:var(--desktopicon-txt-left-mobile); }
   .desktop-icon.icon-info { top:var(--desktopicon-info-top-mobile); left:var(--desktopicon-info-left-mobile); }
+  .desktop-icon.icon-trailer { top:var(--desktopicon-trailer-top-mobile); left:var(--desktopicon-trailer-left-mobile); }
 
   /* Mobile Popup Größe verstecktes Bild */
   #popup-hidden {
@@ -512,6 +516,12 @@ span.blink-dot {
     <a href="#info">
       <img class="icon" src="assets/help_book_alpha.png" alt="Info">
       <div class="label">whatthefuckissda</div>
+    </a>
+  </div>
+  <div class="desktop-icon icon-trailer">
+    <a href="https://youtu.be/BE2Xk8c4-WA?si=uAZon0B2q2F2StPf" target="_blank">
+      <img class="icon" src="assets/trailer_icon.png" alt="Trailer">
+      <div class="label">Trailer</div>
     </a>
   </div>
 </div>
@@ -832,7 +842,7 @@ async function typeSequence(){
     } else {
       await new Promise(r=>setTimeout(r,randDelay(200,500)));
       const span=document.createElement('span');
-      if(item === '•') {
+      if (item === '•') {
         span.classList.add('blink-dot');
         span.textContent = '';
       } else {
