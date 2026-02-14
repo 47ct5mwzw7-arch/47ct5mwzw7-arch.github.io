@@ -284,8 +284,8 @@ span.blink-dot {
   max-width: 700px;
 }
 
-/* ====== Info Page ====== */
-#info-page {
+/* ====== Info Page & Impressum Page ====== */
+#info-page, #impressum-page {
   display: none;
   max-width: 900px;
   margin: 80px auto 40px;
@@ -296,11 +296,11 @@ span.blink-dot {
   min-height: calc(100vh - 200px);
 }
 
-#info-page.active {
+#info-page.active, #impressum-page.active {
   display: block;
 }
 
-.info-content h1 {
+.info-content h1, .impressum-content h1 {
   font-size: 2.5rem;
   margin-bottom: 10px;
   color: #000080;
@@ -312,10 +312,14 @@ span.blink-dot {
   color: #666;
 }
 
-.info-content p {
+.info-content p, .impressum-content p {
   line-height: 1.8;
   margin-bottom: 20px;
   text-align: justify;
+}
+
+.impressum-content p {
+  text-align: left;
 }
 
 .info-images {
@@ -447,14 +451,14 @@ span.blink-dot {
     overflow-y: auto;
   }
 
-  /* Info Page Mobile */
-  #info-page {
+  /* Info Page & Impressum Mobile */
+  #info-page, #impressum-page {
     margin: 60px 10px 20px;
     padding: 20px 15px;
     min-height: calc(100vh - 200px);
   }
 
-  .info-content h1 {
+  .info-content h1, .impressum-content h1 {
     font-size: 1.8rem;
   }
 
@@ -566,6 +570,39 @@ span.blink-dot {
   </div>
 </div>
 
+<!-- Impressum Page -->
+<div id="impressum-page">
+  <a href="#" class="back-link">← Zurück zum Desktop</a>
+  <div class="impressum-content">
+    <h1>Impressum</h1>
+    
+    <p><strong>Angaben gemäß § 5 TMG:</strong></p>
+    
+    <p>
+    [Hans Göbel]<br>
+    [Hauptstraße 71]<br>
+    [58452, Witten]
+    </p>
+    
+    <p><strong>Kontakt:</strong></p>
+    
+    <p>
+    E-Mail: [kafakollektiv@gmail.com]
+    </p>
+    
+    <p><strong>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:</strong></p>
+    
+    <p>
+    [Hans Göbel]<br>
+    [Adresse wie oben]
+    </p>
+    
+    <p><strong>Haftungsausschluss:</strong></p>
+    
+    <p>Die Inhalte dieser Website wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen.</p>
+  </div>
+</div>
+
 <!-- GIF Popup -->
 <div id="popup" class="win95-window">
   <div class="titlebar">
@@ -643,6 +680,7 @@ Gib mir die garo ich zieh dran.</div>
   <a href="https://www.instagram.com/hanzgpunkt/" target="_blank">Hansgpunkt</a>,
   <a href="https://www.instagram.com/prod.meyks/" target="_blank">Meyks</a>,
   <a href="https://www.instagram.com/enoronate/" target="_blank">SenorSonate</a> |
+  <a href="#impressum">Impressum</a> |
   Keine Datenerhebung oder Weitergabe.</p>
 </div>
 
@@ -652,14 +690,22 @@ function updateView() {
   const hash = location.hash.substring(1);
   const desktopView = document.getElementById('desktop-view');
   const infoPage = document.getElementById('info-page');
+  const impressumPage = document.getElementById('impressum-page');
   
   if (hash === 'info') {
     desktopView.style.display = 'none';
     infoPage.classList.add('active');
+    impressumPage.classList.remove('active');
+    document.body.classList.add('info-active');
+  } else if (hash === 'impressum') {
+    desktopView.style.display = 'none';
+    infoPage.classList.remove('active');
+    impressumPage.classList.add('active');
     document.body.classList.add('info-active');
   } else {
     desktopView.style.display = 'block';
     infoPage.classList.remove('active');
+    impressumPage.classList.remove('active');
     document.body.classList.remove('info-active');
   }
 }
@@ -813,7 +859,7 @@ function handleHash() {
   
   if (hash === 'pdswsnippet') {
     openWindow('popup-snippet');
-  } else if (hash && hash !== 'info') {
+  } else if (hash && hash !== 'info' && hash !== 'impressum') {
     openWindow(hash);
   }
 }
